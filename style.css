@@ -4,11 +4,56 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.3.0
+Version: 1.5.2
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
 */
+
+/* -- Enterprise B2B Design System -- */
+
+/* Typography Overhaul */
+body, h1, h2, h3, h4, h5, h6, p, a, li, button, input, textarea {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Zero Radius Enforcement */
+.wp-block-button__link,
+.wp-block-image img,
+.wp-block-search__input,
+input, textarea, .card {
+    border-radius: 0px !important;
+}
+
+/* Hero Section Updates */
+.wp-block-cover {
+    background-image: none !important;
+    background-color: #050A30 !important; /* Deep Navy/Black */
+    padding: 120px 20px !important;
+}
+
+.wp-block-cover h1, 
+.wp-block-cover p {
+    color: #ffffff !important;
+}
+
+.wp-block-cover img.wp-block-cover__image-background[src=""] {
+    display: none !important;
+}
+
+/* Primary Button */
+.wp-block-button__link {
+    background-color: #663399 !important; /* Accent Purple */
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* Secondary Button (Outline) */
+.is-style-outline .wp-block-button__link {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
 
 /* -- Hover Effects & Animations [cite: 14] -- */
 
@@ -21,8 +66,14 @@ Requires PHP: 7.4
 /* Hover effect στις κάρτες υπηρεσιών (HexaHelix Grid) */
 .wp-block-column:hover {
     transform: translateY(-5px); /* Ανασήκωμα */
-    box-shadow: 0 12px 24px rgba(0,0,0,0.1); /* Σκιά */
-    border-color: var(--wp--preset--color--accent) !important; /* Μοβ περίγραμμα στο hover */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Distinct Shadow */
+    border-color: transparent;
+    border-left: 4px solid var(--wp--preset--color--accent) !important; /* Purple Left Border */
+}
+
+.wp-block-column {
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
 }
 
 /* Fade In Animation για Hero Text */
