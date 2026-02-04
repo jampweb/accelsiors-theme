@@ -1,0 +1,44 @@
+/*
+Theme Name: Accelsiors Modern FSE
+Theme URI: https://accelsiors.com
+Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
+Author URI: https://accelsiors.com
+Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
+Version: 1.0.1
+Requires at least: 6.4
+Tested up to: 6.9
+Requires PHP: 7.4
+*/
+
+/* -- Hover Effects & Animations [cite: 14] -- */
+
+/* Ομαλό transition σε όλα τα κουμπιά και τις κάρτες */
+.wp-block-button__link, 
+.wp-block-column {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover effect στις κάρτες υπηρεσιών (HexaHelix Grid) */
+.wp-block-column:hover {
+    transform: translateY(-5px); /* Ανασήκωμα */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1); /* Σκιά */
+    border-color: var(--wp--preset--color--accent) !important; /* Μοβ περίγραμμα στο hover */
+}
+
+/* Fade In Animation για Hero Text */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.wp-block-cover__inner-container h1,
+.wp-block-cover__inner-container p {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Sticky Header Shrink (απλοποιημένο) */
+header.wp-block-group {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,0.95) !important;
+}
