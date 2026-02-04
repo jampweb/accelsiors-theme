@@ -1,37 +1,62 @@
 <?php
 /**
- * Title: ACCESHILD Page Layout
+ * Title: Page ACCESHILD
  * Slug: accelsiors/page-acceshild
  * Categories: pages
  */
 ?>
-<div class="wp-block-group alignfull">
-    
-    <div class="wp-block-cover alignfull" style="padding-top:8rem;padding-bottom:8rem">
-        <span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-60 has-background-dim"></span>
-        <div class="wp-block-cover__inner-container">
-            <h1 class="has-text-align-center has-white-color has-text-color">ACCESHILD™: Your Turnkey Defense Against AI Risks</h1>
-            <p class="has-text-align-center has-white-color has-text-color has-large-font-size">Reduce AI risks by 50% with our execution-focused governance.</p>
-            <div class="wp-block-buttons">
-                 <div class="wp-block-button"><a class="wp-block-button__link has-accent-background-color has-background">Request Assessment</a></div>
-                 </div>
-            </div>
-    </div>
-    <div class="wp-block-group alignwide has-light-gray-background-color has-background" style="padding-top:4rem;padding-bottom:4rem">
-        <div class="wp-block-columns are-vertically-aligned-center">
-            
-            <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:30%">
-                <figure class="wp-block-image size-large is-style-rounded"><img src="PATH_TO_DR_HORVATH.jpg" alt="Dr. Istvan Peter Horvath"/></figure>
-                <p class="has-text-align-center" style="font-style:italic">Dr. Istvan Peter Horvath<br>Chief Legal & Risk Officer</p>
-                </div>
-            <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:70%">
-                <h3>Welcome from our Chief Legal & Risk Officer</h3>
-                <p>"I'm proud to introduce ACCESHILD™—our shield against AI risks. As Accelsiors' CLRO, I've witnessed how 'invisible AI' threats can jeopardize trials. We offer a turnkey solution: Audit, Remediation, and Governance."</p>
-                </div>
-            </div>
-        <div class="wp-block-group" style="margin-top:3rem">
-            <h4 class="has-text-align-center">Expert Insights: VP Quality on NIS 2 and AI Governance</h4>
-            <figure class="wp-block-video aligncenter"><video controls src="URL_TO_VIDEO.mp4"></video></figure>
-            </div>
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"backgroundColor":"primary","textColor":"white","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-white-color has-primary-background-color has-text-color has-background" style="padding-top:4rem;padding-bottom:4rem">
+    <!-- wp:columns {"align":"wide"} -->
+    <div class="wp-block-columns alignwide">
+        <!-- wp:column {"verticalAlignment":"center"} -->
+        <div class="wp-block-column is-vertically-aligned-center">
+            <!-- wp:heading {"level":1} -->
+            <h1>ACCESHILD™</h1>
+            <!-- /wp:heading -->
+            <!-- wp:paragraph {"style":{"typography":{"fontSize":"1.25rem"}}} -->
+            <p style="font-size:1.25rem">The Security Strand of the HexaHelix.</p>
+            <!-- /wp:paragraph -->
         </div>
+        <!-- /wp:column -->
+        <!-- wp:column {"verticalAlignment":"center"} -->
+        <div class="wp-block-column is-vertically-aligned-center">
+            <!-- wp:image {"sizeSlug":"large"} -->
+            <figure class="wp-block-image size-large"><img src="https://via.placeholder.com/500x300?text=Shield+Graphic" alt="ACCESHILD Shield"/></figure>
+            <!-- /wp:image -->
+        </div>
+        <!-- /wp:column -->
     </div>
+    <!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide">
+    <!-- wp:columns -->
+    <div class="wp-block-columns">
+        <!-- wp:column {"width":"30%"} -->
+        <div class="wp-block-column" style="flex-basis:30%">
+            <!-- wp:image {"sizeSlug":"medium","className":"is-style-rounded"} -->
+            <figure class="wp-block-image size-medium is-style-rounded"><img src="https://via.placeholder.com/300x300?text=Dr.+Horvath" alt="Dr. Horvath"/></figure>
+            <!-- /wp:image -->
+            <!-- wp:paragraph {"align":"center"} -->
+            <p class="has-text-align-center"><strong>Dr. Horvath</strong><br>VP Quality</p>
+            <!-- /wp:paragraph -->
+        </div>
+        <!-- /wp:column -->
+        <!-- wp:column {"width":"70%"} -->
+        <div class="wp-block-column" style="flex-basis:70%">
+            <!-- wp:heading {"level":2} -->
+            <h2>Expert Welcome</h2>
+            <!-- /wp:heading -->
+            <!-- wp:paragraph -->
+            <p>Welcome to the future of AI compliance in clinical trials. ACCESHILD ensures your data is protected...</p>
+            <!-- /wp:paragraph -->
+            <!-- wp:embed {"url":"https://www.youtube.com/watch?v=placeholder","type":"video","providerNameSlug":"youtube","responsive":true,"className":"wp-embed-aspect-16-9"} / -->
+        </div>
+        <!-- /wp:column -->
+    </div>
+    <!-- /wp:columns -->
+</div>
+<!-- /wp:group -->

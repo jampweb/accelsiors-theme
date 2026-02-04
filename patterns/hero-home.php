@@ -1,21 +1,38 @@
 <?php
 /**
- * Title: Home Hero Section
+ * Title: Hero Home
  * Slug: accelsiors/hero-home
- * Categories: featured
+ * Categories: header, featured
  */
 ?>
-<div class="wp-block-cover alignfull" style="padding-top:100px;padding-bottom:100px">
-    <span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-50 has-background-dim"></span>
-    <div class="wp-block-cover__inner-container">
-        <h1 class="has-text-align-center has-white-color has-text-color" style="font-size:48px">
-            Accelerate Tomorrow's Therapies with Smart, Tailored CRO Solutions
-        </h1>
-        <p class="has-text-align-center has-white-color has-text-color has-large-font-size">
-            Powered by Accelsiors HexaHelix – The Evolved Genetic Code for Success.
-        </p>
+<!-- wp:cover {"url":"https://accelsiors.com/wp-content/uploads/2023/01/hero-bg.jpg","dimRatio":50,"overlayColor":"primary","minHeight":600,"minHeightUnit":"px","align":"full"} -->
+<div class="wp-block-cover alignfull" style="min-height:600px"><span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-50 has-background-dim"></span><div class="wp-block-cover__inner-container">
+    <!-- wp:group {"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group">
+        <!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontSize":"4rem","fontWeight":"700"}},"textColor":"white"} -->
+        <h1 class="has-white-color has-text-color has-text-align-center" style="font-size:4rem;font-weight:700">Accelerating Life-Changing Therapies</h1>
+        <!-- /wp:heading -->
+
+        <!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"1.5rem"}},"textColor":"light-gray"} -->
+        <p class="has-text-align-center has-light-gray-color has-text-color" style="font-size:1.5rem">Global CRO expertise powered by the HexaHelix™ framework.</p>
+        <!-- /wp:paragraph -->
+
+        <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
         <div class="wp-block-buttons">
-            <div class="wp-block-button is-style-fill"><a class="wp-block-button__link">Discover HexaHelix</a></div>
-            </div>
+            <!-- wp:button {"backgroundColor":"accent","textColor":"white"} -->
+            <div class="wp-block-button"><a class="wp-block-button__link has-white-color has-accent-background-color has-text-color has-background wp-element-button">Explore Services</a></div>
+            <!-- /wp:button -->
+
+            <!-- wp:button {"backgroundColor":"white","textColor":"primary","style":{"border":{"width":"1px","color":"#ffffff"}}} -->
+            <div class="wp-block-button"><a class="wp-block-button__link has-primary-color has-white-background-color has-text-color has-background wp-element-button" style="border-color:#ffffff;border-width:1px">Contact Us</a></div>
+            <!-- /wp:button -->
         </div>
+        <!-- /wp:buttons -->
+
+        <!-- wp:paragraph {"align":"center","className":"animated-stats","style":{"typography":{"fontSize":"1.2rem","fontStyle":"italic"}}} -->
+        <p class="has-text-align-center animated-stats" style="font-size:1.2rem;font-style:italic">22+ Years Experience • 40+ Countries</p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:group -->
 </div>
+<!-- /wp:cover -->

@@ -1,7 +1,23 @@
-<div class="wp-block-group has-white-background-color has-background" style="position:sticky;top:0px;z-index:100;border-bottom:1px solid #eee">
-    <div class="wp-block-group alignwide">
-        <div class="wp-block-buttons">
-            <div class="wp-block-button has-custom-font-size has-small-font-size"><a class="wp-block-button__link has-primary-background-color has-background">Schedule Meeting</a></div>
-            </div>
-        </div>
+<!-- wp:group {"className":"sticky-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->
+<header class="wp-block-group sticky-header">
+    <!-- wp:group {"layout":{"type":"flex"}} -->
+    <div class="wp-block-group">
+        <!-- wp:site-logo {"width":150} /-->
+        <!-- wp:site-title /-->
     </div>
+    <!-- /wp:group -->
+
+    <!-- wp:navigation {"layout":{"type":"flex","justifyContent":"right"}} -->
+        <!-- wp:navigation-link {"label":"Home","url":"/"} /-->
+        <!-- wp:navigation-submenu {"label":"Services"} -->
+            <!-- wp:navigation-link {"label":"Clinical Trials","url":"#"} /-->
+            <!-- wp:navigation-link {"label":"Consulting","url":"#"} /-->
+        <!-- /wp:navigation-submenu -->
+        <!-- wp:navigation-link {"label":"About","url":"#"} /-->
+    <!-- /wp:navigation -->
+
+    <!-- wp:button {"backgroundColor":"primary","textColor":"white"} -->
+    <div class="wp-block-button"><a class="wp-block-button__link has-white-color has-primary-background-color has-text-color has-background wp-element-button">Schedule a Meeting</a></div>
+    <!-- /wp:button -->
+</header>
+<!-- /wp:group -->

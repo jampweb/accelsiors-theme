@@ -8,6 +8,11 @@ if ( ! function_exists( 'accelsiors_theme_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'accelsiors_theme_setup' );
 
+function accelsiors_enqueue_styles() {
+    wp_enqueue_style( 'accelsiors-style', get_stylesheet_uri(), array(), '1.0.1' );
+}
+add_action( 'wp_enqueue_scripts', 'accelsiors_enqueue_styles' );
+
 // Auto-Inject Schema Markup based on Docs
 function accelsiors_inject_schema() {
     $schema = null;
@@ -29,15 +34,25 @@ function accelsiors_inject_schema() {
         // [Source: 408]
         $schema = [
             '@context' => 'https://schema.org',
-            '@type'    => 'FAQPage',
-            'mainEntity' => [
+            '@graph' => [
                 [
-                    '@type' => 'Question',
-                    'name' => 'What is ACCESHILD™?',
-                    'acceptedAnswer' => [
-                        '@type' => 'Answer',
-                        'text' => 'ACCESHILD™ is the security strand of Accelsiors HexaHelix...'
+                    '@type'    => 'FAQPage',
+                    'mainEntity' => [
+                        [
+                            '@type' => 'Question',
+                            'name' => 'What is ACCESHILD™?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'ACCESHILD™ is the security strand of Accelsiors HexaHelix...'
+                            ]
+                        ]
                     ]
+                ],
+                [
+                    '@type' => 'Article',
+                    'headline' => get_the_title(),
+                    'datePublished' => get_the_date('c'),
+                    'dateModified' => get_the_modified_date('c'),
                 ]
             ]
         ];

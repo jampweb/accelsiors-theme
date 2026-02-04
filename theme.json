@@ -44,8 +44,8 @@
     "typography": {
       "fontFamilies": [
         {
-          "fontFamily": "system-ui, -apple-system, sans-serif",
-          "name": "System Sans",
+          "fontFamily": "Inter, system-ui, -apple-system, sans-serif",
+          "name": "Inter",
           "slug": "sans"
         }
       ],
