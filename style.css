@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.0.2
+Version: 1.1.0
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -44,4 +44,40 @@ Requires PHP: 7.4
     border-bottom: 1px solid rgba(0,0,0,0.05);
     backdrop-filter: blur(10px);
     background-color: rgba(255,255,255,0.95);
+}
+
+/* -- Mobile Responsiveness & Carousel -- */
+@media (max-width: 768px) {
+    /* HexaHelix Horizontal Scroll Snap Carousel */
+    .hexa-carousel .wp-block-columns {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-bottom: 1.5rem; /* Space for scroll/shadow */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+    }
+    .hexa-carousel .wp-block-columns::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    .hexa-carousel .wp-block-column {
+        flex: 0 0 85% !important; /* Show 85% of card to hint scroll */
+        scroll-snap-align: center;
+        margin-bottom: 0 !important;
+    }
+}
+
+/* -- Page Transitions (Swup.js) -- */
+.transition-fade {
+    transition: 0.4s ease-in-out;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* State when page is leaving/entering */
+html.is-changing .transition-fade {
+    opacity: 0;
+    transform: translateX(30px); /* Slide effect */
 }

@@ -10,6 +10,10 @@ add_action( 'after_setup_theme', 'accelsiors_theme_setup' );
 
 function accelsiors_enqueue_styles() {
     wp_enqueue_style( 'accelsiors-style', get_stylesheet_uri(), array(), '1.0.1' );
+    
+    // Enqueue Swup.js for App-Like Transitions (Zero Cost / Open Source)
+    wp_enqueue_script( 'swup', 'https://unpkg.com/swup@4', array(), '4.0', true );
+    wp_enqueue_script( 'accelsiors-app', get_template_directory_uri() . '/assets/js/app.js', array('swup'), '1.1.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'accelsiors_enqueue_styles' );
 

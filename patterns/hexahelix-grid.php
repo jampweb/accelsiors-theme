@@ -5,8 +5,8 @@
  * Categories: services
  */
 ?>
-<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide">
+<!-- wp:group {"align":"wide","className":"hexa-carousel","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide hexa-carousel">
     <!-- wp:heading {"textAlign":"center","style":{"typography":{"fontSize":"2.5rem"}}} -->
     <h2 class="has-text-align-center" style="font-size:2.5rem">Our HexaHelix™ Expertise</h2>
     <!-- /wp:heading -->
