@@ -11,21 +11,18 @@
     <h2 class="has-text-align-center">Your Global Partner with Local Expertise</h2>
     <!-- /wp:heading -->
     
-    <!-- wp:paragraph {"align":"center"} -->
-    <p class="has-text-align-center">Seamless trials worldwide, secured by HexaHelix. 40+ Countries, 6 Continents.</p>
-    <!-- /wp:paragraph -->
-
-    <!-- wp:image {"align":"center","sizeSlug":"large"} -->
-    <figure class="wp-block-image aligncenter size-large"><img src="https://via.placeholder.com/1000x500?text=Global+Map" alt="Global Map"/></figure>
+    <!-- wp:image {"align":"center","sizeSlug":"large","style":{"color":{"duotone":"unset"}}} -->
+    <figure class="wp-block-image aligncenter size-large"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt="Global Map" style="opacity:0.8"/></figure>
     <!-- /wp:image -->
+
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">Seamless trials worldwide. 40+ Countries, 6 Continents.</p>
+    <!-- /wp:paragraph -->
 
     <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
     <div class="wp-block-buttons">
         <!-- wp:button -->
         <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Find Your Location</a></div>
-        <!-- /wp:button -->
-        <!-- wp:button -->
-        <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Meet Us at Bio Boston 2025</a></div>
         <!-- /wp:button -->
     </div>
     <!-- /wp:buttons -->
