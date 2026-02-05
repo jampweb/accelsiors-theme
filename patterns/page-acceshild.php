@@ -2,7 +2,7 @@
 /**
  * Title: Page ACCESHILD
  * Slug: accelsiors/page-acceshild
- * Categories: pages
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:cover {"url":"https://via.placeholder.com/1200x600?text=ACCESHILD+Shield","dimRatio":60,"overlayColor":"primary","align":"full"} -->

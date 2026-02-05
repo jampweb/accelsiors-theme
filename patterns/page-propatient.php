@@ -2,7 +2,7 @@
 /**
  * Title: Page ProPATIENT
  * Slug: accelsiors/page-propatient
- * Categories: pages
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:cover {"url":"https://via.placeholder.com/1200x600?text=Patient+Engagement","dimRatio":50,"overlayColor":"primary","align":"full"} -->

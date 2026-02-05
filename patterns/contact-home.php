@@ -2,7 +2,7 @@
 /**
  * Title: Contact Home
  * Slug: accelsiors/contact-home
- * Categories: footer
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"3rem","bottom":"3rem"}}},"backgroundColor":"light-gray","layout":{"type":"constrained"}} -->

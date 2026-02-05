@@ -11,6 +11,12 @@ add_action( 'after_setup_theme', 'accelsiors_theme_setup' );
 // CRITICAL FIX: Enqueue styles on the Frontend
 function accelsiors_enqueue_styles() {
     wp_enqueue_style( 'accelsiors-main-style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ) ); // Cache busting
+
+    // Enqueue Barba.js for SPA transitions
+    wp_enqueue_script( 'barba', 'https://unpkg.com/@barba/core', array(), '2.9.7', true );
+
+    // Enqueue Custom Transitions
+    wp_enqueue_script( 'accelsiors-transitions', get_template_directory_uri() . '/assets/js/app-transitions.js', array('barba'), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'accelsiors_enqueue_styles' );
 
@@ -85,7 +91,7 @@ function accelsiors_inject_schema() {
                     '@type' => 'Organization',
                     'name' => 'Accelsiors',
                     'url' => home_url(),
-                    'logo' => get_template_directory_uri() . '/assets/images/logo.png',
+                    'logo' => get_template_directory_uri() . '/assets/images/accelsiors-logo.png',
                     'description' => 'Accelsiors is a global CRO accelerating therapies for emerging biotechs with HexaHelix solutions.'
                 ],
                 [
@@ -228,4 +234,27 @@ function accelsiors_inject_schema() {
     }
 }
 add_action('wp_head', 'accelsiors_inject_schema');
+
+// Register Custom Block Styles for the HexaHelix Grid
+function accelsiors_register_block_styles() {
+    register_block_style( 'core/columns', array(
+        'name'  => 'cards-vertical',
+        'label' => __( 'Vertical Cards (Poster)', 'accelsiors' ),
+    ) );
+
+    register_block_style( 'core/columns', array(
+        'name'  => 'cards-horizontal',
+        'label' => __( 'Horizontal Cards (Landscape)', 'accelsiors' ),
+    ) );
+}
+add_action( 'init', 'accelsiors_register_block_styles' );
+
+// Register Custom Pattern Category
+function accelsiors_register_pattern_category() {
+    register_block_pattern_category(
+        'accelsiors',
+        array( 'label' => __( 'Accelsiors Custom Blocks', 'accelsiors' ) )
+    );
+}
+add_action( 'init', 'accelsiors_register_pattern_category' );
 ?>

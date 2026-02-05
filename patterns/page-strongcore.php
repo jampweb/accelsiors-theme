@@ -2,7 +2,7 @@
 /**
  * Title: Page StrongCORE
  * Slug: accelsiors/page-strongcore
- * Categories: pages
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:cover {"url":"https://via.placeholder.com/1200x600?text=Scientific+Experts","dimRatio":50,"overlayColor":"primary","align":"full"} -->

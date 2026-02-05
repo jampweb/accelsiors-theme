@@ -2,7 +2,7 @@
 /**
  * Title: Services Overview
  * Slug: accelsiors/services-overview
- * Categories: services
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
@@ -15,32 +15,55 @@
     <div class="wp-block-columns">
         <!-- wp:column -->
         <div class="wp-block-column">
-            <!-- wp:heading {"level":3} -->
-            <h3>Clinical Trial Services</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Early to late stage – Project management, monitoring, data, safety, and more, with built-in AI security.</p>
-            <!-- /wp:paragraph -->
+            <!-- wp:group {"className":"service-card","layout":{"type":"default"}} -->
+            <div class="wp-block-group service-card">
+                <!-- wp:heading {"level":3} -->
+                <h3>Clinical Trial Services</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>Early to late stage – Project management, monitoring, data, safety, and more, with built-in AI security.</p>
+                <!-- /wp:paragraph -->
+                <!-- wp:paragraph -->
+                <p><a href="#">Explore -&gt;</a></p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:group -->
         </div>
         <!-- /wp:column -->
+
         <!-- wp:column -->
         <div class="wp-block-column">
-            <!-- wp:heading {"level":3} -->
-            <h3>Clinical Research Consulting</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Regulatory, pharmacovigilance, legal/GDPR, and drug development guidance.</p>
-            <!-- /wp:paragraph -->
+            <!-- wp:group {"className":"service-card","layout":{"type":"default"}} -->
+            <div class="wp-block-group service-card">
+                <!-- wp:heading {"level":3} -->
+                <h3>Clinical Research Consulting</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>Regulatory, pharmacovigilance, legal/GDPR, and drug development guidance.</p>
+                <!-- /wp:paragraph -->
+                <!-- wp:paragraph -->
+                <p><a href="#">Explore -&gt;</a></p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:group -->
         </div>
         <!-- /wp:column -->
+
         <!-- wp:column -->
         <div class="wp-block-column">
-            <!-- wp:heading {"level":3} -->
-            <h3>Functional Service Provider (FSP)</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Flexible, cost-effective expertise for your needs.</p>
-            <!-- /wp:paragraph -->
+            <!-- wp:group {"className":"service-card","layout":{"type":"default"}} -->
+            <div class="wp-block-group service-card">
+                <!-- wp:heading {"level":3} -->
+                <h3>Functional Service Provider (FSP)</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>Flexible, cost-effective expertise tailored to your needs.</p>
+                <!-- /wp:paragraph -->
+                <!-- wp:paragraph -->
+                <p><a href="#">Explore -&gt;</a></p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:group -->
         </div>
         <!-- /wp:column -->
     </div>
@@ -48,7 +71,9 @@
     
     <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
     <div class="wp-block-buttons">
+        <!-- wp:button -->
         <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Request a Customized Solution</a></div>
+        <!-- /wp:button -->
     </div>
     <!-- /wp:buttons -->
 </div>

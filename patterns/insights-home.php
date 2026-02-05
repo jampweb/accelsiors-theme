@@ -2,7 +2,7 @@
 /**
  * Title: Insights Home
  * Slug: accelsiors/insights-home
- * Categories: posts
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->

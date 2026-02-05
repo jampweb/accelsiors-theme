@@ -2,7 +2,7 @@
 /**
  * Title: Expertise Home
  * Slug: accelsiors/expertise-home
- * Categories: services
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->

@@ -2,19 +2,32 @@
 /**
  * Title: Global Reach
  * Slug: accelsiors/global-reach
- * Categories: featured
+ * Categories: accelsiors
  */
 ?>
-<!-- wp:cover {"url":"https://via.placeholder.com/1200x600?text=Global+Map","dimRatio":50,"overlayColor":"primary","align":"full"} -->
-<div class="wp-block-cover alignfull"><span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-50 has-background-dim"></span><div class="wp-block-cover__inner-container">
-    <!-- wp:heading {"textAlign":"center","textColor":"white"} -->
-    <h2 class="has-white-color has-text-color has-text-align-center">Your Global Partner with Local Expertise</h2>
+<!-- wp:group {"align":"full","style":{"elements":{"link":{"color":{"text":"var:preset|color|white"}}},"color":{"background":"#050A30","text":"#ffffff"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-text-color has-background" style="background-color:#050A30;color:#ffffff">
+    <!-- wp:heading {"textAlign":"center"} -->
+    <h2 class="has-text-align-center">Your Global Partner with Local Expertise</h2>
     <!-- /wp:heading -->
-    <!-- wp:paragraph {"align":"center","textColor":"white"} -->
-    <p class="has-text-align-center has-white-color has-text-color">Seamless trials worldwide, secured by HexaHelix. 40+ Countries, 6 Continents.</p>
+    
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">Seamless trials worldwide, secured by HexaHelix. 40+ Countries, 6 Continents.</p>
     <!-- /wp:paragraph -->
+
+    <!-- wp:image {"align":"center","sizeSlug":"large"} -->
+    <figure class="wp-block-image aligncenter size-large"><img src="https://via.placeholder.com/1000x500?text=Global+Map" alt="Global Map"/></figure>
+    <!-- /wp:image -->
+
     <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-    <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline"} --><div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button">Find Your Location</a></div><!-- /wp:button --></div>
+    <div class="wp-block-buttons">
+        <!-- wp:button -->
+        <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Find Your Location</a></div>
+        <!-- /wp:button -->
+        <!-- wp:button -->
+        <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Meet Us at Bio Boston 2025</a></div>
+        <!-- /wp:button -->
+    </div>
     <!-- /wp:buttons -->
-</div></div>
-<!-- /wp:cover -->
+</div>
+<!-- /wp:group -->

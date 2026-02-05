@@ -3,8 +3,8 @@
   "settings": {
     "appearanceTools": true,
     "layout": {
-      "contentSize": "1200px",
-      "wideSize": "1400px"
+      "contentSize": "80%",
+      "wideSize": "100%"
     },
     "color": {
       "defaultPalette": false,
@@ -67,8 +67,8 @@
     "blocks": {
       "core/button": {
         "color": {
-          "background": "#ffffff",
-          "text": "#000000"
+          "background": "#663399",
+          "text": "#ffffff"
         },
         "border": {
           "radius": "0px"
@@ -88,10 +88,6 @@
       "h1": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } },
       "h2": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } },
       "h3": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } }
-    }
-  }
-}
-      }
     }
   }
 }

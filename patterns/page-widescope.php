@@ -2,7 +2,7 @@
 /**
  * Title: Page WideSCOPE
  * Slug: accelsiors/page-widescope
- * Categories: pages
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:cover {"url":"https://via.placeholder.com/1200x600?text=Data+Dashboards","dimRatio":50,"overlayColor":"primary","align":"full"} -->

@@ -2,7 +2,7 @@
 /**
  * Title: Page QualityDRIVE
  * Slug: accelsiors/page-qualitydrive
- * Categories: pages
+ * Categories: accelsiors
  */
 ?>
 <!-- wp:cover {"url":"https://via.placeholder.com/1200x600?text=QualityDRIVE+Flowchart","dimRatio":50,"overlayColor":"primary","align":"full"} -->

@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.5.2
+Version: 1.6.2
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -68,7 +68,7 @@ input, textarea, .card {
     transform: translateY(-5px); /* Ανασήκωμα */
     box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Distinct Shadow */
     border-color: transparent;
-    border-left: 4px solid var(--wp--preset--color--accent) !important; /* Purple Left Border */
+    /* border-left: 4px solid var(--wp--preset--color--accent) !important; /* Purple Left Border */
 }
 
 .wp-block-column {
@@ -97,38 +97,264 @@ input, textarea, .card {
     background-color: rgba(255,255,255,0.95);
 }
 
-/* -- Mobile Responsiveness & Carousel -- */
+/* --- Mobile Carousel Fix (< 768px) --- */
 @media (max-width: 768px) {
-    /* HexaHelix Horizontal Scroll Snap Carousel */
-    .hexa-carousel .wp-block-columns {
+    /* Target both the old and new grid classes */
+    .hexa-carousel .wp-block-columns,
+    .hexa-smart-grid {
         display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important; /* Force single line */
+        overflow-x: auto !important; /* Allow scroll */
         scroll-snap-type: x mandatory;
-        gap: 1rem;
-        padding-bottom: 1.5rem; /* Space for scroll/shadow */
+        gap: 1.5rem !important;
+        padding-bottom: 2rem; /* Space for scrollbar/thumb */
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
+        margin-left: -20px; /* Compensate for container padding */
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
-    .hexa-carousel .wp-block-columns::-webkit-scrollbar {
-        display: none; /* Chrome/Safari */
+    /* Hide Scrollbar */
+    .hexa-carousel .wp-block-columns::-webkit-scrollbar,
+    .hexa-smart-grid::-webkit-scrollbar {
+        display: none; 
     }
-    .hexa-carousel .wp-block-column {
-        flex: 0 0 85% !important; /* Show 85% of card to hint scroll */
-        scroll-snap-align: center;
+    /* Individual Cards */
+    .hexa-carousel .wp-block-column,
+    .hexa-smart-grid .wp-block-column {
+        flex: 0 0 85vw !important;
+        width: 85vw !important;
+        min-width: 85vw !important;
         margin-bottom: 0 !important;
+        margin-right: 16px !important;
+        scroll-snap-align: center;
     }
 }
 
-/* -- Page Transitions (Swup.js) -- */
-.transition-fade {
-    transition: 0.4s ease-in-out;
+/* --- Page Transitions (Barba.js Update) --- */
+
+.barba-container {
+    /* Αυξήσαμε σε 0.8s και βάλαμε cubic-bezier για smooth "φρένο" */
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
+    width: 100%;
+    opacity: 1; /* Default state */
+}
+
+/* Καταστάσεις */
+.is-leaving {
+    opacity: 0;
+    transform: translateX(-80px); /* Πιο διακριτική μετατόπιση */
+}
+
+.is-entering {
+    opacity: 0;
+    transform: translateX(80px);
+}
+
+/* 3. Η τελική κατάσταση της νέας σελίδας */
+.is-active {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* State when page is leaving/entering */
-html.is-changing .transition-fade {
-    opacity: 0;
-    transform: translateX(30px); /* Slide effect */
+/* --- BARBA WRAPPER FIX (FINAL) --- */
+
+/* 1. Ο Wrapper πιάνει αναγκαστικά όλη την οθόνη */
+[data-barba="wrapper"] {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
 }
+
+/* 2. Ο Container (Main) ανοίγει επίσης τέρμα */
+[data-barba="container"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. Διόρθωση για το Hero Section μέσα στο Barba */
+.wp-block-cover.alignfull {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    border-radius: 0 !important;
+}
+
+/* 4. Εξασφάλιση ότι το body δεν έχει περιθώρια */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* CRITICAL LAYOUT FIX */
+.site-wrapper, 
+[data-barba="wrapper"] {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+/* Restore Alignments */ 
+.alignfull { 
+    width: 100vw; 
+    max-width: 100vw; 
+    margin-left: calc(50% - 50vw); 
+    margin-right: calc(50% - 50vw); 
+    box-sizing: border-box;
+}
+
+.alignwide { max-width: 1400px; margin-left: auto; margin-right: auto; }
+
+/* Barba Containers */ .barba-container { width: 100%; flex: 1; }
+
+/* --- SMART GRID STYLES --- */
+/* Default Column Gap */
+.hexa-smart-grid {
+    gap: 2rem !important;
+    flex-wrap: wrap !important;
+}
+
+/* --- CARD STYLING (Cover Blocks) --- */
+.hexa-card-cover {
+    border: 1px solid #e0e0e0;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow: hidden; /* Keeps zoom inside */
+    border-radius: 0px !important; /* Sharp Edges */
+}
+
+/* 1. Vertical Style (Poster - 4:5 Ratio) */
+.is-style-cards-vertical .hexa-card-cover {
+    min-height: 500px !important;
+}
+
+/* 2. Horizontal Style (Landscape - 16:9 Ratio) */
+.is-style-cards-horizontal .hexa-card-cover {
+    min-height: 280px !important;
+}
+
+/* --- HOVER EFFECTS (Accenture Style) --- */
+
+/* Target the Background Image */
+.hexa-card-cover .wp-block-cover__image-background {
+    transition: transform 0.8s ease, filter 0.5s ease;
+    transform-origin: center center;
+}
+
+/* Target the Content Container */
+.hexa-card-cover .wp-block-cover__inner-container {
+    transition: transform 0.5s ease;
+    z-index: 2;
+}
+
+/* Hover State */
+.hexa-card-cover:hover .wp-block-cover__image-background {
+    transform: scale(1.15); /* Slow Zoom In */
+    filter: blur(4px) brightness(0.6); /* Blur & Darken */
+}
+
+.hexa-card-cover:hover .wp-block-cover__inner-container {
+    transform: translateY(-15px); /* Text floats up */
+}
+
+/* Link Styling inside Card */
+.hexa-card-cover a {
+    text-decoration: none;
+    color: #fff;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.hexa-card-cover a:hover {
+    border-bottom-color: #fff;
+}
+
+/* Dynamic Hover Border */
+.custom-hover-border .wp-block-cover {
+    border-left: 0px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-hover-border:hover .wp-block-cover {
+    border-left: 5px solid var(--wp--preset--color--primary, #663399);
+}
+
+/* --- HERO SPLIT LAYOUT (Accenture Style) --- */
+
+/* Typography */
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 5.5rem) !important;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 2rem;
+}
+
+/* Desktop Alignment */
+.hero-split-layout .wp-block-columns {
+    text-align: left;
+}
+
+.hero-split-layout .wp-block-buttons {
+    justify-content: flex-start !important;
+    margin-bottom: 1.5rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .hero-split-layout .wp-block-cover__inner-container {
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: left !important;
+    }
+
+    .hero-split-layout .wp-block-columns {
+        display: block !important;
+    }
+
+    .hero-split-layout .wp-block-column {
+        width: 100% !important;
+        flex-basis: 100% !important;
+        margin-bottom: 2rem;
+    }
+    
+    /* Force Left Alignment on everything in Hero */
+    .hero-split-layout h1, 
+    .hero-split-layout p, 
+    .hero-split-layout .wp-block-buttons {
+        text-align: left !important;
+        justify-content: flex-start !important;
+    }
+}
+
+/* Service Cards Desktop Styling */
+.service-card {
+    border: 1px solid #e0e0e0;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+}
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    border-color: #663399; /* Accent Color */
+}
+/* Sticky Header Logic */ .sticky-header { position: sticky; top: 0; z-index: 999; background: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
