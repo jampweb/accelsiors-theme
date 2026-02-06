@@ -19,19 +19,23 @@ p, a, li, button, input, textarea {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 
+:root {
+    --accelsiors-header-height: 80px;
+}
+
 body {
     margin: 0;
-    padding-top: 80px !important;
+    padding-top: calc(var(--accelsiors-header-height, 80px) + var(--wp-admin--admin-bar--height, 0px)) !important;
     overflow-x: hidden;
 }
 
 /* Sticky Header (Fixed) */
 .sticky-header {
     position: fixed !important;
-    top: 0;
+    top: var(--wp-admin--admin-bar--height, 0px);
     left: 0;
     width: 100%;
-    height: 80px;
+    min-height: var(--accelsiors-header-height, 80px);
     z-index: 9999;
     background-color: #ffffff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -198,18 +202,24 @@ input, textarea,
 ===================================================== */
 
 /* Hero Section */
-.wp-block-cover {
+.hero-cover.wp-block-cover {
     background-image: none !important;
     background-color: #050A30 !important;
-    padding: 120px 20px !important;
+    padding: 140px 20px !important;
 }
 
-.wp-block-cover h1,
-.wp-block-cover p {
+.hero-cover .wp-block-cover__inner-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.hero-cover h1,
+.hero-cover p,
+.hero-cover a {
     color: #ffffff !important;
 }
 
-.wp-block-cover img.wp-block-cover__image-background[src=""] {
+.hero-cover img.wp-block-cover__image-background[src=""] {
     display: none !important;
 }
 
@@ -225,23 +235,49 @@ input, textarea,
 }
 
 /* Hero Split Layout */
-.hero-title {
-    font-size: clamp(2.5rem, 5vw, 5.5rem) !important;
-}
-
-.hero-subtitle {
-    font-size: 1.1rem !important;
-    line-height: 1.6 !important;
-    margin-bottom: 2rem;
-}
-
-.hero-split-layout .wp-block-columns {
+.hero-cover .wp-block-columns {
+    align-items: center;
     text-align: left;
 }
 
-.hero-split-layout .wp-block-buttons {
-    justify-content: flex-start !important;
+.hero-title {
+    font-size: clamp(3.5rem, 6vw, 7rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.02em;
+}
+
+.hero-accent-line {
+    width: 80px;
+    height: 4px;
+    background-color: #a855f7;
+    border: none;
+    margin: 0 0 1.5rem 0;
+    opacity: 1;
+}
+
+.hero-intro {
+    font-size: 1.1rem !important;
+    line-height: 1.7 !important;
     margin-bottom: 1.5rem;
+}
+
+.hero-cta {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.hero-cta a {
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    padding-bottom: 2px;
+    display: inline-flex;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+.hero-cta a:hover {
+    border-bottom-color: #ffffff;
 }
 
 /* Hover Effects */
@@ -345,38 +381,37 @@ input, textarea,
 ===================================================== */
 @media (max-width: 781px) {
     /* Hero Section (Stacked Layout) */
-    .hero-split-layout .wp-block-cover__inner-container {
+    .hero-cover .wp-block-cover__inner-container {
         padding-left: 20px;
         padding-right: 20px;
         text-align: left !important;
     }
 
-    .hero-split-layout .wp-block-columns {
+    .hero-cover .wp-block-columns {
         display: flex !important;
         flex-direction: column !important;
         gap: 1.5rem;
     }
 
-    .hero-split-layout .wp-block-column {
+    .hero-cover .wp-block-column {
         width: 100% !important;
         flex-basis: 100% !important;
         margin-bottom: 0;
     }
 
-    .hero-split-layout h1,
-    .hero-split-layout p,
-    .hero-split-layout .wp-block-buttons {
+    .hero-cover h1,
+    .hero-cover p,
+    .hero-cover .wp-block-buttons {
         text-align: left !important;
         justify-content: flex-start !important;
     }
 
-    .hero-split-layout h1,
-    .wp-block-cover h1 {
-        font-size: 2.2rem !important;
+    .hero-cover h1 {
+        font-size: 2.8rem !important;
     }
 
-    .wp-block-cover {
-        padding: 100px 20px !important;
+    .hero-cover.wp-block-cover {
+        padding: 110px 20px !important;
     }
 
     /* HexaHelix Grid (Horizontal Carousel) */
