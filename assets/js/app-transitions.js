@@ -28,35 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     // Note: We REMOVED the custom swipe-back logic here since we want native browser behavior on mobile/touch.
-
-    // --- Smart Header Logic ---
-    let lastScrollTop = 0;
-    const header = document.querySelector('.sticky-header');
-    const delta = 5; // Sensitivity threshold
-    if (header) {
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Ignore negative scroll (bouncing at top)
-            if (currentScroll <= 0) {
-                header.classList.remove('header-hidden');
-                lastScrollTop = 0;
-                return;
-            }
-            // If user scrolled more than delta
-            if (Math.abs(lastScrollTop - currentScroll) > delta) {
-                
-                // SCROLL DOWN -> Hide Header
-                if (currentScroll > lastScrollTop && currentScroll > 100) {
-                    header.classList.add('header-hidden');
-                } 
-                // SCROLL UP -> Show Header
-                else {
-                    header.classList.remove('header-hidden');
-                }
-            }
-            
-            lastScrollTop = currentScroll;
-        }, { passive: true }); // Improve performance
-    }
+    
+    // REMOVED: Smart Header Scroll Logic (User requested static header)
 });
