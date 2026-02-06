@@ -10,46 +10,54 @@ Tested up to: 6.9
 Requires PHP: 7.4
 */
 
-/* -- Enterprise B2B Design System -- */
-
-/* Typography Overhaul */
-body, h1, h2, h3, h4, h5, h6, p, a, li, button, input, textarea {
+/* =====================================================
+   Global Styles & Typography
+===================================================== */
+body,
+h1, h2, h3, h4, h5, h6,
+p, a, li, button, input, textarea {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 
-/* --- SMART HEADER STYLES --- */
-/* 1. Push content down so it doesn't hide behind header */
-body { 
-    padding-top: 120px !important; /* Adjust based on header height */ 
+body {
+    margin: 0;
+    padding-top: 80px !important;
+    overflow-x: hidden;
+}
+
+/* Sticky Header (Fixed) */
+.sticky-header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 9999;
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateY(0);
+}
+
+.sticky-header.header-hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
 }
 
 /* Zero Radius Enforcement */
 .wp-block-button__link,
 .wp-block-image img,
 .wp-block-search__input,
-input, textarea, .card {
-    border-radius: 0px !important;
-}
-
-/* Hero Section Updates */
-.wp-block-cover {
-    background-image: none !important;
-    background-color: #050A30 !important; /* Deep Navy/Black */
-    padding: 120px 20px !important;
-}
-
-.wp-block-cover h1, 
-.wp-block-cover p {
-    color: #ffffff !important;
-}
-
-.wp-block-cover img.wp-block-cover__image-background[src=""] {
-    display: none !important;
+input, textarea,
+.card {
+    border-radius: 0 !important;
 }
 
 /* Primary Button */
 .wp-block-button__link {
-    background-color: #663399 !important; /* Accent Purple */
+    background-color: #663399 !important;
     color: #ffffff !important;
     border: none !important;
 }
@@ -61,96 +69,17 @@ input, textarea, .card {
     border: 1px solid #ffffff !important;
 }
 
-/* -- Hover Effects & Animations [cite: 14] -- */
-
-/* Ομαλό transition σε όλα τα κουμπιά και τις κάρτες */
-.wp-block-button__link, 
-.wp-block-column {
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-/* Hover effect στις κάρτες υπηρεσιών (HexaHelix Grid) */
-.wp-block-column:hover {
-    transform: translateY(-5px); /* Ανασήκωμα */
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Distinct Shadow */
-    border-color: transparent;
-    /* border-left: 4px solid var(--wp--preset--color--accent) !important; /* Purple Left Border */
-}
-
-.wp-block-column {
-    background-color: #ffffff !important;
-    border: 1px solid #e0e0e0 !important;
-}
-
-/* Fade In Animation για Hero Text */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.wp-block-cover__inner-container h1,
-.wp-block-cover__inner-container p {
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-/* Sticky Header Shrink (απλοποιημένο) */
-.sticky-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    backdrop-filter: blur(10px);
-    background-color: rgba(255,255,255,0.95);
-}
-
-/* --- Mobile Carousel Fix (< 768px) --- */
-@media (max-width: 768px) {
-    /* Target both the old and new grid classes */
-    .hexa-carousel .wp-block-columns,
-    .hexa-smart-grid {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important; /* Force single line */
-        overflow-x: auto !important; /* Allow scroll */
-        scroll-snap-type: x mandatory;
-        gap: 1.5rem !important;
-        padding-bottom: 2rem; /* Space for scrollbar/thumb */
-        -webkit-overflow-scrolling: touch;
-        margin-left: -20px; /* Compensate for container padding */
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    /* Hide Scrollbar */
-    .hexa-carousel .wp-block-columns::-webkit-scrollbar,
-    .hexa-smart-grid::-webkit-scrollbar {
-        display: none; 
-    }
-    /* Individual Cards */
-    .hexa-carousel .wp-block-column,
-    .hexa-smart-grid .wp-block-column {
-        flex: 0 0 85vw !important;
-        width: 85vw !important;
-        min-width: 85vw !important;
-        margin-bottom: 0 !important;
-        margin-right: 16px !important;
-        scroll-snap-align: center;
-    }
-}
-
-/* --- Page Transitions (Barba.js Update) --- */
-
+/* Barba.js Page Transitions */
 .barba-container {
-    /* Αυξήσαμε σε 0.8s και βάλαμε cubic-bezier για smooth "φρένο" */
     transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
     width: 100%;
-    opacity: 1; /* Default state */
+    opacity: 1;
+    flex: 1;
 }
 
-/* Καταστάσεις */
 .is-leaving {
     opacity: 0;
-    transform: translateX(-80px); /* Πιο διακριτική μετατόπιση */
+    transform: translateX(-80px);
 }
 
 .is-entering {
@@ -158,15 +87,12 @@ input, textarea, .card {
     transform: translateX(80px);
 }
 
-/* 3. Η τελική κατάσταση της νέας σελίδας */
 .is-active {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* --- BARBA WRAPPER FIX (FINAL) --- */
-
-/* 1. Ο Wrapper πιάνει αναγκαστικά όλη την οθόνη */
+/* Barba Wrapper Fixes */
 [data-barba="wrapper"] {
     width: 100vw !important;
     max-width: 100vw !important;
@@ -178,7 +104,6 @@ input, textarea, .card {
     padding: 0 !important;
 }
 
-/* 2. Ο Container (Main) ανοίγει επίσης τέρμα */
 [data-barba="container"] {
     width: 100% !important;
     max-width: 100% !important;
@@ -187,7 +112,22 @@ input, textarea, .card {
     flex-direction: column;
 }
 
-/* 3. Διόρθωση για το Hero Section μέσα στο Barba */
+/* Alignments */
+.alignfull {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    box-sizing: border-box;
+}
+
+.alignwide {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Full Width Cover Fix */
 .wp-block-cover.alignfull {
     width: 100vw !important;
     max-width: 100vw !important;
@@ -196,86 +136,172 @@ input, textarea, .card {
     border-radius: 0 !important;
 }
 
-/* 4. Εξασφάλιση ότι το body δεν έχει περιθώρια */
-body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+/* Footer Base */
+.site-footer {
+    background-color: #050A30 !important;
+    color: #ffffff !important;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
 }
 
-/* CRITICAL LAYOUT FIX */
-.site-wrapper, 
-[data-barba="wrapper"] {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-/* Restore Alignments */ 
-.alignfull { 
-    width: 100vw; 
-    max-width: 100vw; 
-    margin-left: calc(50% - 50vw); 
-    margin-right: calc(50% - 50vw); 
-    box-sizing: border-box;
+.site-footer a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none;
 }
 
-.alignwide { max-width: 1400px; margin-left: auto; margin-right: auto; }
+.site-footer a:hover {
+    color: #ffffff !important;
+    opacity: 1;
+}
 
-/* Barba Containers */ .barba-container { width: 100%; flex: 1; }
+.site-footer h1,
+.site-footer h2,
+.site-footer h3,
+.site-footer h4,
+.site-footer h5,
+.site-footer h6,
+.site-footer p,
+.site-footer li {
+    color: #ffffff !important;
+}
 
-/* --- SMART GRID STYLES --- */
-/* Default Column Gap */
+.site-footer ul {
+    list-style: none !important;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.site-footer li a {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.site-footer li a:hover {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.site-footer .wp-block-social-link {
+    color: #ffffff !important;
+}
+
+.site-footer .wp-block-column {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* =====================================================
+   Desktop Styles (Hero, Cards, Hover)
+===================================================== */
+
+/* Hero Section */
+.wp-block-cover {
+    background-image: none !important;
+    background-color: #050A30 !important;
+    padding: 120px 20px !important;
+}
+
+.wp-block-cover h1,
+.wp-block-cover p {
+    color: #ffffff !important;
+}
+
+.wp-block-cover img.wp-block-cover__image-background[src=""] {
+    display: none !important;
+}
+
+/* Fade In Animation for Hero Text */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.wp-block-cover__inner-container h1,
+.wp-block-cover__inner-container p {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Hero Split Layout */
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 5.5rem) !important;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 2rem;
+}
+
+.hero-split-layout .wp-block-columns {
+    text-align: left;
+}
+
+.hero-split-layout .wp-block-buttons {
+    justify-content: flex-start !important;
+    margin-bottom: 1.5rem;
+}
+
+/* Hover Effects */
+.wp-block-button__link,
+.wp-block-column {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.wp-block-column {
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
+.wp-block-column:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: transparent;
+}
+
+/* Hexa Smart Grid (Desktop) */
 .hexa-smart-grid {
     gap: 2rem !important;
     flex-wrap: wrap !important;
 }
 
-/* --- CARD STYLING (Cover Blocks) --- */
+/* Card Styling (Cover Blocks) */
 .hexa-card-cover {
     border: 1px solid #e0e0e0;
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    overflow: hidden; /* Keeps zoom inside */
-    border-radius: 0px !important; /* Sharp Edges */
+    overflow: hidden;
+    border-radius: 0 !important;
 }
 
-/* 1. Vertical Style (Poster - 4:5 Ratio) */
 .is-style-cards-vertical .hexa-card-cover {
     min-height: 500px !important;
 }
 
-/* 2. Horizontal Style (Landscape - 16:9 Ratio) */
 .is-style-cards-horizontal .hexa-card-cover {
     min-height: 280px !important;
 }
 
-/* --- HOVER EFFECTS (Accenture Style) --- */
-
-/* Target the Background Image */
 .hexa-card-cover .wp-block-cover__image-background {
     transition: transform 0.8s ease, filter 0.5s ease;
     transform-origin: center center;
 }
 
-/* Target the Content Container */
 .hexa-card-cover .wp-block-cover__inner-container {
     transition: transform 0.5s ease;
     z-index: 2;
 }
 
-/* Hover State */
 .hexa-card-cover:hover .wp-block-cover__image-background {
-    transform: scale(1.15); /* Slow Zoom In */
-    filter: blur(4px) brightness(0.6); /* Blur & Darken */
+    transform: scale(1.15);
+    filter: blur(4px) brightness(0.6);
 }
 
 .hexa-card-cover:hover .wp-block-cover__inner-container {
-    transform: translateY(-15px); /* Text floats up */
+    transform: translateY(-15px);
 }
 
-/* Link Styling inside Card */
 .hexa-card-cover a {
     text-decoration: none;
     color: #fff;
@@ -287,9 +313,8 @@ body {
     border-bottom-color: #fff;
 }
 
-/* Dynamic Hover Border */
 .custom-hover-border .wp-block-cover {
-    border-left: 0px solid transparent;
+    border-left: 0 solid transparent;
     transition: all 0.3s ease;
 }
 
@@ -297,57 +322,7 @@ body {
     border-left: 5px solid var(--wp--preset--color--primary, #663399);
 }
 
-/* --- HERO SPLIT LAYOUT (Accenture Style) --- */
-
-/* Typography */
-.hero-title {
-    font-size: clamp(2.5rem, 5vw, 5.5rem) !important;
-}
-
-.hero-subtitle {
-    font-size: 1.1rem !important;
-    line-height: 1.6 !important;
-    margin-bottom: 2rem;
-}
-
-/* Desktop Alignment */
-.hero-split-layout .wp-block-columns {
-    text-align: left;
-}
-
-.hero-split-layout .wp-block-buttons {
-    justify-content: flex-start !important;
-    margin-bottom: 1.5rem;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .hero-split-layout .wp-block-cover__inner-container {
-        padding-left: 20px;
-        padding-right: 20px;
-        text-align: left !important;
-    }
-
-    .hero-split-layout .wp-block-columns {
-        display: block !important;
-    }
-
-    .hero-split-layout .wp-block-column {
-        width: 100% !important;
-        flex-basis: 100% !important;
-        margin-bottom: 2rem;
-    }
-    
-    /* Force Left Alignment on everything in Hero */
-    .hero-split-layout h1, 
-    .hero-split-layout p, 
-    .hero-split-layout .wp-block-buttons {
-        text-align: left !important;
-        justify-content: flex-start !important;
-    }
-}
-
-/* Service Cards Desktop Styling */
+/* Service Cards */
 .service-card {
     border: 1px solid #e0e0e0;
     padding: 2.5rem;
@@ -358,58 +333,93 @@ body {
     justify-content: space-between;
     background: #fff;
 }
+
 .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-    border-color: #663399; /* Accent Color */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    border-color: #663399;
 }
 
-/* 2. Base Header State (Visible) */
-.sticky-header { 
-    position: fixed !important; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    z-index: 9999; 
-    background: rgba(255, 255, 255, 0.98); 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth Slide */ 
-    transform: translateY(0); /* Default: Visible */ 
+/* =====================================================
+   Mobile Media Query (<= 781px)
+===================================================== */
+@media (max-width: 781px) {
+    /* Hero Section (Stacked Layout) */
+    .hero-split-layout .wp-block-cover__inner-container {
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: left !important;
+    }
+
+    .hero-split-layout .wp-block-columns {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem;
+    }
+
+    .hero-split-layout .wp-block-column {
+        width: 100% !important;
+        flex-basis: 100% !important;
+        margin-bottom: 0;
+    }
+
+    .hero-split-layout h1,
+    .hero-split-layout p,
+    .hero-split-layout .wp-block-buttons {
+        text-align: left !important;
+        justify-content: flex-start !important;
+    }
+
+    .hero-split-layout h1,
+    .wp-block-cover h1 {
+        font-size: 2.2rem !important;
+    }
+
+    .wp-block-cover {
+        padding: 100px 20px !important;
+    }
+
+    /* HexaHelix Grid (Horizontal Carousel) */
+    .hexa-carousel .wp-block-columns,
+    .hexa-smart-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        gap: 1.5rem !important;
+        padding-bottom: 2rem;
+        -webkit-overflow-scrolling: touch;
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hexa-carousel .wp-block-columns::-webkit-scrollbar,
+    .hexa-smart-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hexa-carousel .wp-block-column,
+    .hexa-smart-grid .wp-block-column {
+        flex: 0 0 85vw !important;
+        width: 85vw !important;
+        min-width: 85vw !important;
+        margin-bottom: 0 !important;
+        margin-right: 16px !important;
+        scroll-snap-align: center;
+    }
+
+    /* Footer Stack */
+    .site-footer .wp-block-columns {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .site-footer .wp-block-column {
+        width: 100% !important;
+        flex-basis: 100% !important;
+    }
 }
-
-/* 3. Hidden State (Slide Up) */
-.sticky-header.header-hidden { 
-    transform: translateY(-100%); /* Move completely out of view */ 
-    box-shadow: none; 
-}
-
-/* Footer Styling */
-.site-footer { background-color: #050A30 !important; color: #ffffff !important; }
-.site-footer a { color: rgba(255,255,255,0.8) !important; text-decoration: none; }
-.site-footer a:hover { color: #ffffff !important; opacity: 1; }
-
-/* --- FOOTER RESCUE --- */
-.site-footer {
-    background-color: #050A30 !important;
-    color: #ffffff !important;
-    padding-top: 4rem;
-    padding-bottom: 2rem;
-}
-/* Headers inside Footer */ .site-footer h1, .site-footer h2, .site-footer h3, .site-footer h4, .site-footer h5, .site-footer h6 { color: #ffffff !important; }
-
-/* Links inside Footer (Lists) */ .site-footer ul { list-style: none !important; padding-left: 0; margin-left: 0; }
-
-.site-footer li a { color: rgba(255, 255, 255, 0.7) !important; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; }
-
-.site-footer li a:hover { color: #ffffff !important; text-decoration: underline; }
-
-/* Social Icons */ .site-footer .wp-block-social-link { color: #ffffff !important; }
-
-/* --- FOOTER COLUMN FIX --- */
-.site-footer .wp-block-column {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important; /* Reset padding if needed */
-}
-/* Ensure text inside is visible */ .site-footer p, .site-footer li, .site-footer h1, .site-footer h2, .site-footer h3, .site-footer h4 { color: #ffffff !important; }
