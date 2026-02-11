@@ -8,15 +8,38 @@ if ( ! function_exists( 'accelsiors_theme_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'accelsiors_theme_setup' );
 
+function accelsiors_register_hero_block_styles() {
+	register_block_style(
+		'core/group',
+		array(
+			'name'         => 'hero-cinematic',
+			'label'        => __( 'Hero: Cinematic Split', 'accelsiors' ),
+			'inline_style' => '.wp-block-group.is-style-hero-cinematic{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:4rem;text-align:left;}'
+		)
+	);
+
+	register_block_style(
+		'core/group',
+		array(
+			'name'         => 'hero-centered',
+			'label'        => __( 'Hero: Centered Stack', 'accelsiors' ),
+			'inline_style' => '.wp-block-group.is-style-hero-centered{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;text-align:center;}'
+		)
+	);
+}
+add_action( 'init', 'accelsiors_register_hero_block_styles' );
+
 // CRITICAL FIX: Enqueue styles on the Frontend
 function accelsiors_enqueue_styles() {
+    $theme_version = wp_get_theme()->get( 'Version' );
+
     wp_enqueue_style( 'accelsiors-main-style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ) ); // Cache busting
 
     // Enqueue Barba.js for SPA transitions
     wp_enqueue_script( 'barba', 'https://unpkg.com/@barba/core', array(), '2.9.7', true );
 
     // Enqueue Custom Transitions
-    wp_enqueue_script( 'accelsiors-transitions', get_template_directory_uri() . '/assets/js/app-transitions.js', array('barba'), '1.0.0', true );
+    wp_enqueue_script( 'accelsiors-transitions', get_template_directory_uri() . '/assets/js/app-transitions.js', array('barba'), $theme_version, true );
 }
 add_action( 'wp_enqueue_scripts', 'accelsiors_enqueue_styles' );
 
