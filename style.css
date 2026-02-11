@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.6
+Version: 1.6.7
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -234,50 +234,99 @@ input, textarea,
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* Hero Split Layout */
-.hero-cover .wp-block-columns {
-    align-items: center;
-    text-align: left;
+/* Hero Switchable Layout System */
+.hero-cover .hero-layout {
+    width: min(100%, 1280px);
+    margin: 0 auto;
 }
 
-.hero-title {
-    font-size: clamp(3.5rem, 6vw, 7rem) !important;
+.hero-cover .hero-title {
+    margin: 0;
+    font-size: clamp(3rem, 7vw, 7.5rem) !important;
     font-weight: 800 !important;
-    line-height: 1.05 !important;
+    line-height: 1.02 !important;
     letter-spacing: -0.02em;
+    flex: 1 1 56%;
 }
 
-.hero-accent-line {
+.hero-cover .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex: 1 1 44%;
+    max-width: 38rem;
+}
+
+.hero-cover .hero-accent-line {
     width: 80px;
     height: 4px;
     background-color: #a855f7;
     border: none;
-    margin: 0 0 1.5rem 0;
+    margin: 0;
     opacity: 1;
 }
 
-.hero-intro {
-    font-size: 1.1rem !important;
+.hero-cover .hero-intro {
+    margin: 0;
+    font-size: clamp(1rem, 1.3vw, 1.2rem) !important;
     line-height: 1.7 !important;
-    margin-bottom: 1.5rem;
 }
 
-.hero-cta {
-    font-weight: 600;
-    letter-spacing: 0.01em;
+.hero-cover .hero-buttons {
+    gap: 1rem;
 }
 
-.hero-cta a {
+.hero-cover .wp-block-button__link {
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-    padding-bottom: 2px;
-    display: inline-flex;
-    gap: 0.35rem;
-    align-items: center;
 }
 
-.hero-cta a:hover {
-    border-bottom-color: #ffffff;
+.hero-cover .hero-cta-link .wp-block-button__link {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 0 0 4px 0 !important;
+}
+
+.hero-cover .hero-cta-link .wp-block-button__link:hover {
+    border-bottom-color: #ffffff !important;
+}
+
+.hero-cover .wp-block-group.is-style-hero-cinematic {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    text-align: left;
+}
+
+.hero-cover .wp-block-group.is-style-hero-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    text-align: center;
+}
+
+.hero-cover .wp-block-group.is-style-hero-centered .hero-title,
+.hero-cover .wp-block-group.is-style-hero-centered .hero-content {
+    flex: 0 1 auto;
+    max-width: 52rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cover .wp-block-group.is-style-hero-centered .hero-accent-line {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cover .wp-block-group.is-style-hero-centered .hero-buttons {
+    justify-content: center;
 }
 
 /* Hover Effects */
@@ -377,41 +426,48 @@ input, textarea,
 }
 
 /* =====================================================
-   Mobile Media Query (<= 781px)
+   Mobile Media Query (< 768px)
 ===================================================== */
-@media (max-width: 781px) {
-    /* Hero Section (Stacked Layout) */
+@media (max-width: 767px) {
+    /* Hero Section (Stacked Layout for all hero styles) */
+    .hero-cover.wp-block-cover {
+        padding: 110px 20px !important;
+    }
+
     .hero-cover .wp-block-cover__inner-container {
         padding-left: 20px;
         padding-right: 20px;
-        text-align: left !important;
     }
 
-    .hero-cover .wp-block-columns {
+    .hero-cover .hero-layout,
+    .hero-cover .wp-block-group.is-style-hero-cinematic,
+    .hero-cover .wp-block-group.is-style-hero-centered {
         display: flex !important;
         flex-direction: column !important;
-        gap: 1.5rem;
-    }
-
-    .hero-cover .wp-block-column {
-        width: 100% !important;
-        flex-basis: 100% !important;
-        margin-bottom: 0;
-    }
-
-    .hero-cover h1,
-    .hero-cover p,
-    .hero-cover .wp-block-buttons {
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
         text-align: left !important;
+        gap: 1.5rem !important;
+    }
+
+    .hero-cover .hero-title,
+    .hero-cover .hero-content {
+        width: 100%;
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+
+    .hero-cover .hero-title {
+        font-size: clamp(2.5rem, 11vw, 3.6rem) !important;
+    }
+
+    .hero-cover .hero-buttons {
         justify-content: flex-start !important;
     }
 
-    .hero-cover h1 {
-        font-size: 2.8rem !important;
-    }
-
-    .hero-cover.wp-block-cover {
-        padding: 110px 20px !important;
+    .hero-cover .hero-accent-line {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
     /* HexaHelix Grid (Horizontal Carousel) */
