@@ -234,8 +234,7 @@ input, textarea,
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* --- HERO LAYOUT FINAL FIX --- */
-/* 1. Unlock the Cover Block Inner Container */
+/* --- HERO BASE (Common) --- */
 .hero-cover > .wp-block-cover__inner-container {
     width: 100% !important;
     max-width: 100% !important;
@@ -243,37 +242,72 @@ input, textarea,
     padding: 0 !important;
 }
 
-/* 2. The Flex Wrapper */
 .hero-cinematic-wrapper {
     display: flex !important;
-    flex-direction: row !important;
     align-items: center !important;
-    justify-content: space-between !important;
     width: 90% !important;
     max-width: 1600px !important;
     margin: 0 auto !important;
     gap: 5% !important;
 }
 
-/* 3. Left Column (Title) */
-.hero-left-col {
+/* --- OPTION A: CINEMATIC SPLIT (Default) --- */
+/* Applies when 'Cinematic' is chosen OR no style is chosen */
+.hero-cinematic-wrapper:not(.is-style-hero-centered) {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    text-align: left !important;
+}
+
+.hero-cinematic-wrapper:not(.is-style-hero-centered) .hero-left-col {
     width: 55% !important;
     flex: 0 0 55% !important;
     text-align: left !important;
 }
 
-/* 4. Right Column (Content) */
-.hero-right-col {
+.hero-cinematic-wrapper:not(.is-style-hero-centered) .hero-right-col {
     width: 40% !important;
     flex: 0 0 40% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    /* Force Left Align */
     text-align: left !important;
 }
 
-/* 5. Typography & Elements */
+/* --- OPTION B: CENTERED STACK --- */
+/* Applies ONLY when 'Centered Stack' is chosen */
+.hero-cinematic-wrapper.is-style-hero-centered {
+    flex-direction: column !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding-top: 4rem;
+}
+
+.hero-cinematic-wrapper.is-style-hero-centered .hero-left-col,
+.hero-cinematic-wrapper.is-style-hero-centered .hero-right-col {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 900px !important;
+    align-items: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.hero-cinematic-wrapper.is-style-hero-centered .hero-accent-line {
+    margin: 0 auto 1.5rem auto !important;
+}
+
+.hero-cinematic-wrapper.is-style-hero-centered .hero-buttons {
+    justify-content: center !important;
+}
+
+.hero-cinematic-wrapper.is-style-hero-centered .hero-title,
+.hero-cinematic-wrapper.is-style-hero-centered .hero-subheadline,
+.hero-cinematic-wrapper.is-style-hero-centered .hero-description {
+    text-align: center !important;
+}
+
+/* --- TYPOGRAPHY --- */
 .hero-title {
     font-size: clamp(3.5rem, 6vw, 7.5rem) !important;
     line-height: 0.95 !important;
@@ -288,7 +322,6 @@ input, textarea,
     background-color: #A100FF !important;
     border: none !important;
     margin: 0 0 1.5rem 0 !important;
-    /* Left aligned margin */
 }
 
 .hero-subheadline {
@@ -302,10 +335,12 @@ input, textarea,
     justify-content: flex-start !important;
 }
 
-/* 6. Mobile Stack (<992px) */
+/* --- TYPOGRAPHY & MOBILE --- */
 @media (max-width: 991px) {
-    .hero-cinematic-wrapper {
+    .hero-cinematic-wrapper,
+    .hero-cinematic-wrapper:not(.is-style-hero-centered) {
         flex-direction: column !important;
+        text-align: left !important;
         width: 100% !important;
         padding: 0 20px !important;
     }
