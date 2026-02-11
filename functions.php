@@ -12,18 +12,16 @@ function accelsiors_register_hero_block_styles() {
 	register_block_style(
 		'core/group',
 		array(
-			'name'         => 'hero-cinematic',
-			'label'        => __( 'Hero: Cinematic Split', 'accelsiors' ),
-			'inline_style' => '.wp-block-group.is-style-hero-cinematic{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:4rem;text-align:left;}'
+			'name'  => 'hero-cinematic',
+			'label' => __( 'Hero: Cinematic Split', 'accelsiors' ),
 		)
 	);
 
 	register_block_style(
 		'core/group',
 		array(
-			'name'         => 'hero-centered',
-			'label'        => __( 'Hero: Centered Stack', 'accelsiors' ),
-			'inline_style' => '.wp-block-group.is-style-hero-centered{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;text-align:center;}'
+			'name'  => 'hero-centered',
+			'label' => __( 'Hero: Centered Stack', 'accelsiors' ),
 		)
 	);
 }

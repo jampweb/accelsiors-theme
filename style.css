@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.10
+Version: 1.6.11
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -234,103 +234,91 @@ input, textarea,
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* --- HERO CINEMATIC SPLIT FIX --- */
-/* 1. The Wrapper: Force Row & Center */
+/* --- HERO LAYOUT FINAL FIX --- */
+/* 1. Unlock the Cover Block Inner Container */
+.hero-cover > .wp-block-cover__inner-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 2. The Flex Wrapper */
 .hero-cinematic-wrapper {
     display: flex !important;
     flex-direction: row !important;
-    justify-content: space-between !important;
     align-items: center !important;
-    width: 100% !important;
-    max-width: 1400px !important;
+    justify-content: space-between !important;
+    width: 90% !important;
+    max-width: 1600px !important;
     margin: 0 auto !important;
-    gap: 4rem !important;
+    gap: 5% !important;
 }
 
-/* 2. Left Column (Title): 60% Width, Left Align */
+/* 3. Left Column (Title) */
 .hero-left-col {
-    width: 60% !important;
-    flex: 0 0 60% !important;
-    max-width: 60% !important;
+    width: 55% !important;
+    flex: 0 0 55% !important;
     text-align: left !important;
 }
 
-/* 3. Right Column (Content): 35% Width, Left Align */
+/* 4. Right Column (Content) */
 .hero-right-col {
-    width: 35% !important;
-    flex: 0 0 35% !important;
-    max-width: 35% !important;
-    text-align: left !important;
+    width: 40% !important;
+    flex: 0 0 40% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 1.5rem !important;
+    /* Force Left Align */
+    text-align: left !important;
 }
 
-/* 4. Content Styling */
+/* 5. Typography & Elements */
 .hero-title {
-    font-size: clamp(3rem, 7vw, 7.5rem) !important;
-    line-height: 0.9 !important;
+    font-size: clamp(3.5rem, 6vw, 7.5rem) !important;
+    line-height: 0.95 !important;
     font-weight: 800 !important;
+    color: #fff !important;
     margin: 0 !important;
 }
 
 .hero-accent-line {
-    width: 80px !important;
-    margin-left: 0 !important;
-    background-color: #A100FF !important;
+    width: 60px !important;
     height: 4px !important;
+    background-color: #A100FF !important;
     border: none !important;
+    margin: 0 0 1.5rem 0 !important;
+    /* Left aligned margin */
+}
+
+.hero-subheadline {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+    text-align: left !important;
 }
 
 .hero-buttons {
     justify-content: flex-start !important;
 }
 
-.hero-subheadline {
-    margin: 0;
-    font-size: clamp(1.2rem, 1.8vw, 1.8rem) !important;
-    line-height: 1.25 !important;
-    font-weight: 600 !important;
-}
-
-.hero-description {
-    margin: 0;
-    font-size: clamp(1rem, 1.3vw, 1.2rem) !important;
-    line-height: 1.7 !important;
-}
-
-.hero-cover .wp-block-button__link {
-    text-decoration: none;
-}
-
-.hero-cover .hero-cta-link .wp-block-button__link {
-    background-color: transparent !important;
-    color: #ffffff !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    padding: 0 0 4px 0 !important;
-}
-
-.hero-cover .hero-cta-link .wp-block-button__link:hover {
-    border-bottom-color: #ffffff !important;
-}
-
-/* 5. Mobile Override (<992px) */
+/* 6. Mobile Stack (<992px) */
 @media (max-width: 991px) {
     .hero-cinematic-wrapper {
         flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 2rem !important;
+        width: 100% !important;
+        padding: 0 20px !important;
     }
 
     .hero-left-col,
     .hero-right-col {
         width: 100% !important;
-        max-width: 100% !important;
         flex: 0 0 100% !important;
+    }
+
+    .hero-title {
+        font-size: 3rem !important;
+        margin-bottom: 2rem !important;
     }
 }
 
