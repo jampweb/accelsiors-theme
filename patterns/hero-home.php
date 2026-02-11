@@ -13,8 +13,8 @@
 		<h1 class="wp-block-heading hero-title">TOGETHER WE REINVENTED</h1>
 		<!-- /wp:heading -->
 
-		<!-- wp:group {"className":"hero-content","layout":{"type":"constrained"}} -->
-		<div class="wp-block-group hero-content">
+		<!-- wp:group {"className":"hero-content hero-right-col","layout":{"type":"constrained"}} -->
+		<div class="wp-block-group hero-content hero-right-col">
 			<!-- wp:separator {"className":"hero-accent-line"} -->
 			<hr class="wp-block-separator hero-accent-line"/>
 			<!-- /wp:separator -->
@@ -34,6 +34,10 @@
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
+
+			<!-- wp:paragraph {"className":"hero-stats"} -->
+			<p class="hero-stats">Trusted by global life sciences teams to deliver measurable outcomes across strategy, compliance, and execution.</p>
+			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
 	</div>

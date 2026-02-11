@@ -246,15 +246,16 @@ input, textarea,
     font-weight: 800 !important;
     line-height: 1.02 !important;
     letter-spacing: -0.02em;
-    flex: 1 1 56%;
+    flex-basis: 55%;
+    max-width: 60%;
 }
 
 .hero-cover .hero-content {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    flex: 1 1 44%;
-    max-width: 38rem;
+    flex-basis: 40%;
+    max-width: 45%;
 }
 
 .hero-cover .hero-accent-line {
@@ -271,6 +272,20 @@ input, textarea,
     font-size: clamp(1rem, 1.3vw, 1.2rem) !important;
     line-height: 1.7 !important;
 }
+
+.hero-cover .hero-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.hero-cover .hero-stats {
+    margin: 0;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    opacity: 0.9;
+}
+
 
 .hero-cover .hero-buttons {
     gap: 1rem;
@@ -302,6 +317,7 @@ input, textarea,
     gap: 4rem;
     text-align: left;
 }
+
 
 .hero-cover .wp-block-group.is-style-hero-centered {
     display: flex;
@@ -426,9 +442,9 @@ input, textarea,
 }
 
 /* =====================================================
-   Mobile Media Query (< 768px)
+   Mobile Media Query (< 992px)
 ===================================================== */
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     /* Hero Section (Stacked Layout for all hero styles) */
     .hero-cover.wp-block-cover {
         padding: 110px 20px !important;
@@ -451,7 +467,8 @@ input, textarea,
     }
 
     .hero-cover .hero-title,
-    .hero-cover .hero-content {
+    .hero-cover .hero-content,
+    .hero-cover .hero-right-col {
         width: 100%;
         max-width: 100%;
         flex-basis: 100%;
