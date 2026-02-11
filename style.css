@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.8
+Version: 1.6.9
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -235,27 +235,37 @@ input, textarea,
 }
 
 /* Hero Switchable Layout System */
-.hero-cover .hero-layout {
-    width: min(100%, 1280px);
+.hero-cover .hero-cinematic-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100%;
+    max-width: 1600px;
     margin: 0 auto;
+    gap: 4rem;
 }
 
 .hero-cover .hero-title {
     margin: 0;
-    font-size: clamp(3rem, 7vw, 7.5rem) !important;
+    font-size: clamp(3rem, 6vw, 7rem) !important;
     font-weight: 800 !important;
-    line-height: 1.02 !important;
+    line-height: 0.9 !important;
     letter-spacing: -0.02em;
-    flex-basis: 55%;
-    max-width: 60%;
+
 }
 
-.hero-cover .hero-content {
+.hero-cover .hero-left-col {
+    flex: 0 0 60%;
+    text-align: left !important;
+}
+
+.hero-cover .hero-right-col {
+    flex: 0 0 35%;
+    text-align: left !important;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    flex-basis: 40%;
-    max-width: 45%;
 }
 
 .hero-cover .hero-accent-line {
@@ -267,24 +277,19 @@ input, textarea,
     opacity: 1;
 }
 
-.hero-cover .hero-intro {
+.hero-cover .hero-subheadline {
+    margin: 0;
+    font-size: clamp(1.2rem, 1.8vw, 1.8rem) !important;
+    line-height: 1.25 !important;
+    font-weight: 600 !important;
+}
+
+.hero-cover .hero-description {
     margin: 0;
     font-size: clamp(1rem, 1.3vw, 1.2rem) !important;
     line-height: 1.7 !important;
 }
 
-.hero-cover .hero-right-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.hero-cover .hero-stats {
-    margin: 0;
-    font-size: 0.95rem !important;
-    line-height: 1.6 !important;
-    opacity: 0.9;
-}
 
 
 .hero-cover .hero-buttons {
@@ -307,42 +312,6 @@ input, textarea,
 
 .hero-cover .hero-cta-link .wp-block-button__link:hover {
     border-bottom-color: #ffffff !important;
-}
-
-.hero-cover .wp-block-group.is-style-hero-cinematic {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4rem;
-    text-align: left;
-}
-
-
-.hero-cover .wp-block-group.is-style-hero-centered {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    text-align: center;
-}
-
-.hero-cover .wp-block-group.is-style-hero-centered .hero-title,
-.hero-cover .wp-block-group.is-style-hero-centered .hero-content {
-    flex: 0 1 auto;
-    max-width: 52rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero-cover .wp-block-group.is-style-hero-centered .hero-accent-line {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero-cover .wp-block-group.is-style-hero-centered .hero-buttons {
-    justify-content: center;
 }
 
 /* Hover Effects */
@@ -455,23 +424,22 @@ input, textarea,
         padding-right: 20px;
     }
 
-    .hero-cover .hero-layout,
-    .hero-cover .wp-block-group.is-style-hero-cinematic,
-    .hero-cover .wp-block-group.is-style-hero-centered {
-        display: flex !important;
+    .hero-cover .hero-cinematic-wrapper {
         flex-direction: column !important;
         align-items: flex-start !important;
         justify-content: flex-start !important;
-        text-align: left !important;
-        gap: 1.5rem !important;
+        gap: 2rem !important;
     }
 
-    .hero-cover .hero-title,
-    .hero-cover .hero-content,
+    .hero-cover .hero-left-col,
     .hero-cover .hero-right-col {
         width: 100%;
         max-width: 100%;
-        flex-basis: 100%;
+        flex: 0 0 100%;
+    }
+
+    .hero-cover .hero-right-col {
+        margin-top: 0.5rem;
     }
 
     .hero-cover .hero-title {
