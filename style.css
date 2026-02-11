@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.9
+Version: 1.6.10
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -234,66 +234,70 @@ input, textarea,
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* Hero Switchable Layout System */
-.hero-cover .hero-cinematic-wrapper {
+/* --- HERO CINEMATIC SPLIT FIX --- */
+/* 1. The Wrapper: Force Row & Center */
+.hero-cinematic-wrapper {
     display: flex !important;
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
-    gap: 4rem;
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    gap: 4rem !important;
 }
 
-.hero-cover .hero-title {
-    margin: 0;
-    font-size: clamp(3rem, 6vw, 7rem) !important;
-    font-weight: 800 !important;
+/* 2. Left Column (Title): 60% Width, Left Align */
+.hero-left-col {
+    width: 60% !important;
+    flex: 0 0 60% !important;
+    max-width: 60% !important;
+    text-align: left !important;
+}
+
+/* 3. Right Column (Content): 35% Width, Left Align */
+.hero-right-col {
+    width: 35% !important;
+    flex: 0 0 35% !important;
+    max-width: 35% !important;
+    text-align: left !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.5rem !important;
+}
+
+/* 4. Content Styling */
+.hero-title {
+    font-size: clamp(3rem, 7vw, 7.5rem) !important;
     line-height: 0.9 !important;
-    letter-spacing: -0.02em;
-
+    font-weight: 800 !important;
+    margin: 0 !important;
 }
 
-.hero-cover .hero-left-col {
-    flex: 0 0 60%;
-    text-align: left !important;
+.hero-accent-line {
+    width: 80px !important;
+    margin-left: 0 !important;
+    background-color: #A100FF !important;
+    height: 4px !important;
+    border: none !important;
 }
 
-.hero-cover .hero-right-col {
-    flex: 0 0 35%;
-    text-align: left !important;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.hero-buttons {
+    justify-content: flex-start !important;
 }
 
-.hero-cover .hero-accent-line {
-    width: 80px;
-    height: 4px;
-    background-color: #a855f7;
-    border: none;
-    margin: 0;
-    opacity: 1;
-}
-
-.hero-cover .hero-subheadline {
+.hero-subheadline {
     margin: 0;
     font-size: clamp(1.2rem, 1.8vw, 1.8rem) !important;
     line-height: 1.25 !important;
     font-weight: 600 !important;
 }
 
-.hero-cover .hero-description {
+.hero-description {
     margin: 0;
     font-size: clamp(1rem, 1.3vw, 1.2rem) !important;
     line-height: 1.7 !important;
-}
-
-
-
-.hero-cover .hero-buttons {
-    gap: 1rem;
 }
 
 .hero-cover .wp-block-button__link {
@@ -312,6 +316,22 @@ input, textarea,
 
 .hero-cover .hero-cta-link .wp-block-button__link:hover {
     border-bottom-color: #ffffff !important;
+}
+
+/* 5. Mobile Override (<992px) */
+@media (max-width: 991px) {
+    .hero-cinematic-wrapper {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 2rem !important;
+    }
+
+    .hero-left-col,
+    .hero-right-col {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+    }
 }
 
 /* Hover Effects */
@@ -422,37 +442,6 @@ input, textarea,
     .hero-cover .wp-block-cover__inner-container {
         padding-left: 20px;
         padding-right: 20px;
-    }
-
-    .hero-cover .hero-cinematic-wrapper {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        justify-content: flex-start !important;
-        gap: 2rem !important;
-    }
-
-    .hero-cover .hero-left-col,
-    .hero-cover .hero-right-col {
-        width: 100%;
-        max-width: 100%;
-        flex: 0 0 100%;
-    }
-
-    .hero-cover .hero-right-col {
-        margin-top: 0.5rem;
-    }
-
-    .hero-cover .hero-title {
-        font-size: clamp(2.5rem, 11vw, 3.6rem) !important;
-    }
-
-    .hero-cover .hero-buttons {
-        justify-content: flex-start !important;
-    }
-
-    .hero-cover .hero-accent-line {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
     }
 
     /* HexaHelix Grid (Horizontal Carousel) */

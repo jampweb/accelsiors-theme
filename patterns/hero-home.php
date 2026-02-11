@@ -7,9 +7,9 @@
 ?>
 <!-- wp:cover {"url":"https://accelsiors.com/wp-content/uploads/2023/01/hero-bg.jpg","dimRatio":60,"overlayColor":"primary","minHeight":70,"minHeightUnit":"vh","align":"full","className":"hero-cover"} -->
 <div class="wp-block-cover alignfull hero-cover" style="min-height:70vh"><span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-60 has-background-dim"></span><img class="wp-block-cover__image-background" alt="" src="https://accelsiors.com/wp-content/uploads/2023/01/hero-bg.jpg" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
-	<!-- wp:group {"className":"hero-cinematic-wrapper","layout":{"type":"constrained"}} -->
+	<!-- wp:group {"className":"hero-cinematic-wrapper","layout":{"type":"default"}} -->
 	<div class="wp-block-group hero-cinematic-wrapper">
-		<!-- wp:group {"className":"hero-left-col","layout":{"type":"constrained"}} -->
+		<!-- wp:group {"className":"hero-left-col","layout":{"type":"default"}} -->
 		<div class="wp-block-group hero-left-col">
 			<!-- wp:heading {"level":1,"className":"hero-title"} -->
 			<h1 class="wp-block-heading hero-title">TOGETHER WE REINVENTED</h1>
@@ -17,7 +17,7 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:group {"className":"hero-right-col","layout":{"type":"constrained"}} -->
+		<!-- wp:group {"className":"hero-right-col","layout":{"type":"default"}} -->
 		<div class="wp-block-group hero-right-col">
 			<!-- wp:separator {"className":"hero-accent-line"} -->
 			<hr class="wp-block-separator hero-accent-line"/>
