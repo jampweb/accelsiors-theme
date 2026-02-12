@@ -26,9 +26,9 @@
                     <span aria-hidden="true" class="wp-block-cover__background has-black-background-color has-background-dim-50 has-background-dim"></span>
                     <img class="wp-block-cover__image-background" src="https://via.placeholder.com/600x800" alt="QualityDRIVE" data-object-fit="cover"/>
                     <div class="wp-block-cover__inner-container">
-                        <!-- wp:group {"className":"hexa-card-content","layout":{"type":"constrained"}} -->
+                        <!-- wp:group {"className":"hexa-card-content"} -->
                         <div class="wp-block-group hexa-card-content">
-                            <!-- wp:group {"className":"hexa-top-content","layout":{"type":"constrained"}} -->
+                            <!-- wp:group {"className":"hexa-top-content"} -->
                             <div class="wp-block-group hexa-top-content">
                                 <!-- wp:paragraph {"className":"hexa-eyebrow"} -->
                                 <p class="hexa-eyebrow">Precision Strand</p>
@@ -40,7 +40,7 @@
                             </div>
                             <!-- /wp:group -->
 
-                            <!-- wp:group {"className":"hexa-bottom-reveal","layout":{"type":"constrained"}} -->
+                            <!-- wp:group {"className":"hexa-bottom-reveal"} -->
                             <div class="wp-block-group hexa-bottom-reveal">
                                 <!-- wp:paragraph -->
                                 <p>Preventing foreseeable errors with proactive quality systems that reduce risk across every trial milestone.</p>
@@ -66,9 +66,9 @@
                     <span aria-hidden="true" class="wp-block-cover__background has-black-background-color has-background-dim-50 has-background-dim"></span>
                     <img class="wp-block-cover__image-background" src="https://via.placeholder.com/600x800" alt="StrongCORE" data-object-fit="cover"/>
                     <div class="wp-block-cover__inner-container">
-                        <!-- wp:group {"className":"hexa-card-content","layout":{"type":"constrained"}} -->
+                        <!-- wp:group {"className":"hexa-card-content"} -->
                         <div class="wp-block-group hexa-card-content">
-                            <!-- wp:group {"className":"hexa-top-content","layout":{"type":"constrained"}} -->
+                            <!-- wp:group {"className":"hexa-top-content"} -->
                             <div class="wp-block-group hexa-top-content">
                                 <!-- wp:paragraph {"className":"hexa-eyebrow"} -->
                                 <p class="hexa-eyebrow">Scientific Integrity Strand</p>
@@ -80,7 +80,7 @@
                             </div>
                             <!-- /wp:group -->
 
-                            <!-- wp:group {"className":"hexa-bottom-reveal","layout":{"type":"constrained"}} -->
+                            <!-- wp:group {"className":"hexa-bottom-reveal"} -->
                             <div class="wp-block-group hexa-bottom-reveal">
                                 <!-- wp:paragraph -->
                                 <p>Driving ideal study outcomes through resilient methodology, transparent controls, and validated evidence quality.</p>
@@ -106,9 +106,9 @@
                     <span aria-hidden="true" class="wp-block-cover__background has-black-background-color has-background-dim-50 has-background-dim"></span>
                     <img class="wp-block-cover__image-background" src="https://via.placeholder.com/600x800" alt="ACCESHILD" data-object-fit="cover"/>
                     <div class="wp-block-cover__inner-container">
-                        <!-- wp:group {"className":"hexa-card-content","layout":{"type":"constrained"}} -->
+                        <!-- wp:group {"className":"hexa-card-content"} -->
                         <div class="wp-block-group hexa-card-content">
-                            <!-- wp:group {"className":"hexa-top-content","layout":{"type":"constrained"}} -->
+                            <!-- wp:group {"className":"hexa-top-content"} -->
                             <div class="wp-block-group hexa-top-content">
                                 <!-- wp:paragraph {"className":"hexa-eyebrow"} -->
                                 <p class="hexa-eyebrow">Security Strand</p>
@@ -120,7 +120,7 @@
                             </div>
                             <!-- /wp:group -->
 
-                            <!-- wp:group {"className":"hexa-bottom-reveal","layout":{"type":"constrained"}} -->
+                            <!-- wp:group {"className":"hexa-bottom-reveal"} -->
                             <div class="wp-block-group hexa-bottom-reveal">
                                 <!-- wp:paragraph -->
                                 <p>Building defense against AI and data integrity risks with secure-by-design trial orchestration.</p>
