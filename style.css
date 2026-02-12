@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.17
+Version: 1.6.18
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -375,9 +375,9 @@ input, textarea,
 }
 
 /* =========================================
-   HEXAHELIX SMART GRID SYSTEM
+   HEXAHELIX SMART GRID SYSTEM (CSS GRID FIX)
 ========================================= */
-/* 1. Section Header (Force Centering) */
+/* 1. Section Header */
 .hexa-smart-wrapper h2,
 .hexa-smart-wrapper > .wp-block-group > p {
     text-align: center !important;
@@ -386,25 +386,25 @@ input, textarea,
     margin-right: auto !important;
 }
 
-/* 2. The Smart Grid Container (Enable Wrapping) */
+/* 2. The Smart Grid Container */
 .hexa-smart-grid {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     gap: 2rem !important;
-    justify-content: flex-start;
     margin-bottom: 2rem;
-    overflow: visible !important;
+    width: 100% !important;
+    box-sizing: border-box;
 }
 
-/* 3. Grid Columns (Force 3-Col Layout on Desktop) */
+/* 3. The Grid Items (Columns) */
 .hexa-smart-grid > .wp-block-column {
-    flex: 0 0 calc(33.333% - 1.35rem) !important;
-    max-width: calc(33.333% - 1.35rem) !important;
-    min-width: 250px !important;
+    width: auto !important;
+    max-width: none !important;
+    flex: none !important;
     margin: 0 !important;
 }
 
-/* 4. Card Base Style (Default Vertical) */
+/* 4. Card Base Style (Height Unlocked) */
 .hexa-card-cover {
     position: relative;
     overflow: hidden;
@@ -541,18 +541,16 @@ input, textarea,
     margin-left: 10px;
 }
 
-/* 9. Responsive Breakpoints */
+/* 9. Responsive Breakpoints (Grid) */
 @media (max-width: 1200px) {
-    .hexa-smart-grid > .wp-block-column {
-        flex: 0 0 calc(50% - 1rem) !important;
-        max-width: calc(50% - 1rem) !important;
+    .hexa-smart-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 
 @media (max-width: 768px) {
-    .hexa-smart-grid > .wp-block-column {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
+    .hexa-smart-grid {
+        grid-template-columns: 1fr !important;
     }
 }
 
