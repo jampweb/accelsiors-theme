@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.15
+Version: 1.6.16
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -411,19 +411,19 @@ input, textarea,
     border: 1px solid #e0e0e0;
     cursor: pointer;
     transition: all 0.4s ease;
-    min-height: 500px !important;
+    min-height: 600px;
 }
 
 /* 5. Horizontal Style Variant (Triggered by Block Style) */
 .is-style-cards-horizontal .hexa-card-cover,
 .wp-block-columns.is-style-cards-horizontal .hexa-card-cover {
-    min-height: 320px !important;
+    min-height: 320px;
 }
 
 /* 6. Vertical Style Variant (Explicit) */
 .is-style-cards-vertical .hexa-card-cover,
 .wp-block-columns.is-style-cards-vertical .hexa-card-cover {
-    min-height: 500px !important;
+    min-height: 600px;
 }
 
 /* 7. Hover Scope Fix (Disable column hover, enable card hover) */
