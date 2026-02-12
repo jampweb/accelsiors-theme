@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.11
+Version: 1.6.13
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -374,65 +374,114 @@ input, textarea,
     border-color: transparent;
 }
 
-/* Hexa Smart Grid (Desktop) */
+/* --- HEXAHELIX REVEAL FIX (Top Title / Bottom Reveal) --- */
 .hexa-smart-grid {
     gap: 2rem !important;
     flex-wrap: wrap !important;
 }
 
-/* Card Styling (Cover Blocks) */
 .hexa-card-cover {
-    border: 1px solid #e0e0e0;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    min-height: 480px !important;
+    position: relative;
     overflow: hidden;
-    border-radius: 0 !important;
-}
-
-.is-style-cards-vertical .hexa-card-cover {
-    min-height: 500px !important;
-}
-
-.is-style-cards-horizontal .hexa-card-cover {
-    min-height: 280px !important;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
 }
 
 .hexa-card-cover .wp-block-cover__image-background {
-    transition: transform 0.8s ease, filter 0.5s ease;
-    transform-origin: center center;
+    transition: transform 0.5s ease, filter 0.5s ease;
 }
 
-.hexa-card-cover .wp-block-cover__inner-container {
+/* The Container that holds everything */
+.hexa-card-content {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2.5rem !important;
+    box-sizing: border-box;
+    z-index: 10;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* --- TOP CONTENT (Always Visible) --- */
+.hexa-top-content {
+    width: 100%;
+    transform: translateY(0);
     transition: transform 0.5s ease;
-    z-index: 2;
+}
+
+.hexa-eyebrow {
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #A100FF !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 700;
+    display: block;
+}
+
+.hexa-title {
+    font-size: 2.2rem !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+}
+
+/* --- BOTTOM REVEAL (Hidden by default) --- */
+.hexa-bottom-reveal {
+    width: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hexa-bottom-reveal p {
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+}
+
+/* --- HOVER ACTIONS --- */
+.hexa-card-cover:hover .hexa-bottom-reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hexa-card-cover:hover .hexa-top-content {
+    transform: translateY(-10px);
 }
 
 .hexa-card-cover:hover .wp-block-cover__image-background {
-    transform: scale(1.15);
-    filter: blur(4px) brightness(0.6);
+    transform: scale(1.05);
+    filter: brightness(0.7);
 }
 
-.hexa-card-cover:hover .wp-block-cover__inner-container {
-    transform: translateY(-15px);
-}
-
-.hexa-card-cover a {
+/* Link Styling */
+.hexa-link a {
+    color: #fff !important;
     text-decoration: none;
-    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s;
 }
 
-.hexa-card-cover a:hover {
-    border-bottom-color: #fff;
+.hexa-link a:after {
+    content: ' →';
+    margin-left: 5px;
+    transition: margin 0.3s;
 }
 
-.custom-hover-border .wp-block-cover {
-    border-left: 0 solid transparent;
-    transition: all 0.3s ease;
-}
-
-.custom-hover-border:hover .wp-block-cover {
-    border-left: 5px solid var(--wp--preset--color--primary, #663399);
+.hexa-link a:hover:after {
+    margin-left: 10px;
 }
 
 /* Service Cards */
