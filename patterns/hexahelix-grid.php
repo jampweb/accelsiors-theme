@@ -9,12 +9,12 @@
 <div class="wp-block-group alignfull hexa-smart-wrapper">
     <!-- wp:group {"layout":{"type":"constrained"}} -->
     <div class="wp-block-group">
-        <!-- wp:heading {"style":{"typography":{"fontSize":"2.5rem"}}} -->
-        <h2 style="font-size:2.5rem">Accelsiors HexaHelix: The Evolved Genetic Code</h2>
+        <!-- wp:heading {"style":{"typography":{"fontSize":"2.5rem"}},"className":"has-text-align-center"} -->
+        <h2 class="wp-block-heading has-text-align-center" style="font-size:2.5rem">Accelsiors HexaHelix: The Evolved Genetic Code</h2>
         <!-- /wp:heading -->
 
-        <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"3rem"}}}} -->
-        <p style="margin-bottom:3rem">Precision-engineered trials with Quality by Design (QbD), scientific integrity, and AI security.</p>
+        <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"3rem"}}},"className":"has-text-align-center"} -->
+        <p class="has-text-align-center" style="margin-bottom:3rem">Precision-engineered trials with Quality by Design (QbD), scientific integrity, and AI security.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:columns {"align":"wide","className":"hexa-smart-grid"} -->
