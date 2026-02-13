@@ -27,6 +27,25 @@ function accelsiors_register_hero_block_styles() {
 }
 add_action( 'init', 'accelsiors_register_hero_block_styles' );
 
+function accelsiors_register_hexa_grid_block_styles() {
+	register_block_style(
+		'core/group',
+		array(
+			'name'  => 'hexa-grid-3',
+			'label' => __( 'Grid: 3 Cols', 'accelsiors' ),
+		)
+	);
+
+	register_block_style(
+		'core/group',
+		array(
+			'name'  => 'hexa-grid-4',
+			'label' => __( 'Grid: 4 Cols', 'accelsiors' ),
+		)
+	);
+}
+add_action( 'init', 'accelsiors_register_hexa_grid_block_styles' );
+
 // CRITICAL FIX: Enqueue styles on the Frontend
 function accelsiors_enqueue_styles() {
     $theme_version = wp_get_theme()->get( 'Version' );
