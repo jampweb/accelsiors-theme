@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.18
+Version: 1.6.19
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -375,9 +375,8 @@ input, textarea,
 }
 
 /* =========================================
-   HEXAHELIX SMART GRID SYSTEM (CSS GRID FIX)
+   HEXAHELIX SMART GRID SYSTEM (Responsive Flex Wrap)
 ========================================= */
-/* 1. Section Header */
 .hexa-smart-wrapper h2,
 .hexa-smart-wrapper > .wp-block-group > p {
     text-align: center !important;
@@ -386,94 +385,32 @@ input, textarea,
     margin-right: auto !important;
 }
 
-/* 2. The Smart Grid Container */
 .hexa-smart-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
     gap: 2rem !important;
-    margin-bottom: 2rem;
     width: 100% !important;
-    box-sizing: border-box;
+    margin-bottom: 2rem;
 }
 
-/* 3. The Grid Items (Columns) */
 .hexa-smart-grid > .wp-block-column {
-    width: auto !important;
-    max-width: none !important;
-    flex: none !important;
+    min-width: min(100%, 280px);
     margin: 0 !important;
 }
 
-/* 4. Card Base Style (Height Unlocked) */
+.hexa-smart-grid .wp-block-column:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: #e0e0e0 !important;
+}
+
 .hexa-card-cover {
     position: relative;
     overflow: hidden;
     border: 1px solid #e0e0e0;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    min-height: 600px;
-}
-
-/* 5. Horizontal Style Variant (Triggered by Block Style) */
-.is-style-cards-horizontal .hexa-card-cover,
-.wp-block-columns.is-style-cards-horizontal .hexa-card-cover {
-    min-height: 320px;
-}
-
-/* 6. Vertical Style Variant (Explicit) */
-.is-style-cards-vertical .hexa-card-cover,
-.wp-block-columns.is-style-cards-vertical .hexa-card-cover {
-    min-height: 600px;
-}
-
-/* 7. Hover Scope Fix (Disable column hover, enable card hover) */
-.hexa-smart-grid .wp-block-column:hover {
-    box-shadow: none !important;
-    transform: none !important;
-    z-index: auto !important;
-}
-
-.hexa-card-cover:hover {
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
-    transform: translateY(-10px);
-    z-index: 10;
-    border-color: #A100FF;
-}
-
-/* 8. Content Layout & Animation (Accenture Reveal) */
-.hexa-card-content {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 2.5rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    align-items: flex-start !important;
-    text-align: left !important;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%) !important;
-}
-
-.hexa-top-content {
-    transform: translateY(0);
-    transition: transform 0.5s ease;
-}
-
-.hexa-bottom-reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.hexa-card-cover:hover .hexa-bottom-reveal {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.hexa-card-cover:hover .hexa-top-content {
-    transform: translateY(-5px);
+    min-height: 0;
+    aspect-ratio: 3 / 4;
+    isolation: isolate;
 }
 
 .hexa-card-cover .wp-block-cover__background {
@@ -484,17 +421,54 @@ input, textarea,
     position: static !important;
     width: 100% !important;
     max-width: none !important;
+    height: 100%;
     padding: 0 !important;
     margin: 0 !important;
 }
 
 .hexa-card-cover .wp-block-cover__image-background {
-    transition: transform 0.5s ease, filter 0.5s ease;
+    transition: transform 0.55s ease;
+    transform-origin: center;
 }
 
-.hexa-card-cover:hover .wp-block-cover__image-background {
-    transform: scale(1.05);
-    filter: brightness(0.7);
+.hexa-card-content {
+    position: absolute !important;
+    inset: 0;
+    z-index: 2;
+    padding: 1.75rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 10%, rgba(0, 0, 0, 0.38) 55%, rgba(0, 0, 0, 0.18) 100%);
+}
+
+.hexa-top-content {
+    transform: translateY(0);
+    transition: transform 0.45s ease;
+}
+
+.hexa-bottom-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    pointer-events: none;
+}
+
+.hexa-card-cover:hover .hexa-bottom-reveal,
+.hexa-card-cover:focus-within .hexa-bottom-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.hexa-card-cover:hover .hexa-top-content,
+.hexa-card-cover:focus-within .hexa-top-content {
+    transform: translateY(-4px);
+}
+
+.hexa-card-cover:hover .wp-block-cover__image-background,
+.hexa-card-cover:focus-within .wp-block-cover__image-background {
+    transform: scale(1.08);
 }
 
 .hexa-eyebrow {
@@ -502,13 +476,12 @@ input, textarea,
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: #A100FF !important;
-    margin-bottom: 0.5rem !important;
+    margin: 0 0 0.5rem !important;
     font-weight: 700;
-    display: block;
 }
 
 .hexa-title {
-    font-size: 2.2rem !important;
+    font-size: clamp(1.7rem, 2.1vw, 2.25rem) !important;
     font-weight: 700 !important;
     line-height: 1.1 !important;
     color: #ffffff !important;
@@ -519,39 +492,26 @@ input, textarea,
     color: rgba(255, 255, 255, 0.92) !important;
     font-size: 1rem;
     line-height: 1.5;
-    margin-bottom: 1.25rem;
+    margin: 0 0 1rem;
 }
 
-/* Link Styling */
 .hexa-link a {
-    color: #fff !important;
+    color: #ffffff !important;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
     border-bottom: 1px solid transparent;
 }
 
-.hexa-link a:after {
+.hexa-link a::after {
     content: ' →';
     margin-left: 5px;
     transition: margin 0.3s;
 }
 
-.hexa-link a:hover:after {
+.hexa-link a:hover::after,
+.hexa-link a:focus-visible::after {
     margin-left: 10px;
-}
-
-/* 9. Responsive Breakpoints (Grid) */
-@media (max-width: 1200px) {
-    .hexa-smart-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .hexa-smart-grid {
-        grid-template-columns: 1fr !important;
-    }
 }
 
 /* Service Cards */
@@ -584,35 +544,6 @@ input, textarea,
     .hero-cover .wp-block-cover__inner-container {
         padding-left: 20px;
         padding-right: 20px;
-    }
-
-    /* HexaHelix Grid (Horizontal Carousel) */
-    .hexa-carousel .wp-block-columns {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory;
-        gap: 1.5rem !important;
-        padding-bottom: 2rem;
-        -webkit-overflow-scrolling: touch;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .hexa-carousel .wp-block-columns::-webkit-scrollbar {
-        display: none;
-    }
-
-    .hexa-carousel .wp-block-column {
-        flex: 0 0 85vw !important;
-        width: 85vw !important;
-        min-width: 85vw !important;
-        margin-bottom: 0 !important;
-        margin-right: 16px !important;
-        scroll-snap-align: center;
     }
 
     /* Footer Stack */
