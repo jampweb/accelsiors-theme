@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.19
+Version: 1.6.20
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -358,58 +358,43 @@ input, textarea,
 }
 
 /* Hover Effects */
-.wp-block-button__link,
-.wp-block-column {
+.wp-block-button__link {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.wp-block-column {
-    background-color: #ffffff !important;
-    border: 1px solid #e0e0e0 !important;
-}
-
-.wp-block-column:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    border-color: transparent;
-}
-
 /* =========================================
-   HEXAHELIX SMART GRID SYSTEM (Responsive Flex Wrap)
+   HEXAHELIX GRID SYSTEM (Group + CSS Grid)
 ========================================= */
 .hexa-smart-wrapper h2,
-.hexa-smart-wrapper > .wp-block-group > p {
+.hexa-smart-wrapper > p {
     text-align: center !important;
     max-width: 900px;
     margin-left: auto !important;
     margin-right: auto !important;
 }
 
-.hexa-smart-grid {
-    display: flex !important;
-    flex-wrap: wrap !important;
+.hexa-grid-container {
+    display: grid !important;
     gap: 2rem !important;
     width: 100% !important;
     margin-bottom: 2rem;
 }
 
-.hexa-smart-grid > .wp-block-column {
-    min-width: min(100%, 280px);
-    margin: 0 !important;
+.hexa-grid-container,
+.hexa-grid-container.is-style-hexa-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
 }
 
-.hexa-smart-grid .wp-block-column:hover {
-    transform: none !important;
-    box-shadow: none !important;
-    border-color: #e0e0e0 !important;
+.hexa-grid-container.is-style-hexa-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .hexa-card-cover {
     position: relative;
     overflow: hidden;
     border: 1px solid #e0e0e0;
-    min-height: 0;
-    aspect-ratio: 3 / 4;
+    width: 100%;
+    min-height: 500px;
     isolation: isolate;
 }
 
@@ -443,11 +428,19 @@ input, textarea,
 }
 
 .hexa-top-content {
+    position: absolute;
+    top: 1.75rem;
+    left: 1.75rem;
+    right: 1.75rem;
     transform: translateY(0);
     transition: transform 0.45s ease;
 }
 
 .hexa-bottom-reveal {
+    position: absolute;
+    left: 1.75rem;
+    right: 1.75rem;
+    bottom: 1.75rem;
     opacity: 0;
     transform: translateY(18px);
     transition: opacity 0.45s ease, transform 0.45s ease;
@@ -512,6 +505,22 @@ input, textarea,
 .hexa-link a:hover::after,
 .hexa-link a:focus-visible::after {
     margin-left: 10px;
+}
+
+@media (max-width: 1199px) {
+    .hexa-grid-container,
+    .hexa-grid-container.is-style-hexa-grid-3,
+    .hexa-grid-container.is-style-hexa-grid-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .hexa-grid-container,
+    .hexa-grid-container.is-style-hexa-grid-3,
+    .hexa-grid-container.is-style-hexa-grid-4 {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 /* Service Cards */
