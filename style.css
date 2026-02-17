@@ -32,12 +32,13 @@ body {
 /* Sticky Header (Fixed) */
 .sticky-header {
     position: fixed !important;
-    top: 0;
+    top: var(--wp-admin--admin-bar--height, 0px) !important;
     left: 0;
     right: 0;
+    width: 100% !important;
     z-index: 9999;
     transition: transform 0.4s ease-in-out;
-    /* NO BACKGROUND COLOR HERE! Let the Editor control it. */
+    backdrop-filter: blur(10px);
 }
 
 .sticky-header.header-hidden {
