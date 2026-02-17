@@ -57,6 +57,9 @@ function accelsiors_enqueue_styles() {
 
     // Enqueue Custom Transitions
     wp_enqueue_script( 'accelsiors-transitions', get_template_directory_uri() . '/assets/js/app-transitions.js', array('barba'), $theme_version, true );
+
+    // Smart sticky header behavior
+    wp_enqueue_script( 'accelsiors-header', get_template_directory_uri() . '/assets/js/accelsiors-header.js', array(), $theme_version, true );
 }
 add_action( 'wp_enqueue_scripts', 'accelsiors_enqueue_styles' );
 
