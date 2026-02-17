@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.27
+Version: 1.6.28
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -373,12 +373,12 @@ input, textarea,
     margin-right: auto !important;
 }
 
-.hexa-grid-container {
-    display: grid !important;
-    width: 100% !important;
-    max-width: min(1400px, 100%) !important;
-    margin: 0 auto 2rem !important;
-    align-items: stretch !important;
+.wp-block-group.hexa-grid-container {
+    display: grid;
+    width: 100%;
+    gap: var(--wp--style--block-gap, 2rem);
+    align-items: stretch;
+    margin-bottom: 3rem;
 }
 
 .hexa-grid-container > * {
@@ -386,12 +386,12 @@ input, textarea,
     display: flex;
 }
 
-.hexa-grid-container,
-.hexa-grid-container.is-style-hexa-grid-3 {
+.wp-block-group.hexa-grid-container,
+.wp-block-group.hexa-grid-container.is-style-hexa-grid-3 {
     grid-template-columns: repeat(3, 1fr);
 }
 
-.hexa-grid-container.is-style-hexa-grid-4 {
+.wp-block-group.hexa-grid-container.is-style-hexa-grid-4 {
     grid-template-columns: repeat(4, 1fr);
 }
 
@@ -545,17 +545,17 @@ input, textarea,
 }
 
 @media (max-width: 1199px) {
-    .hexa-grid-container,
-    .hexa-grid-container.is-style-hexa-grid-3,
-    .hexa-grid-container.is-style-hexa-grid-4 {
+    .wp-block-group.hexa-grid-container,
+    .wp-block-group.hexa-grid-container.is-style-hexa-grid-3,
+    .wp-block-group.hexa-grid-container.is-style-hexa-grid-4 {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 
 @media (max-width: 767px) {
-    .hexa-grid-container,
-    .hexa-grid-container.is-style-hexa-grid-3,
-    .hexa-grid-container.is-style-hexa-grid-4 {
+    .wp-block-group.hexa-grid-container,
+    .wp-block-group.hexa-grid-container.is-style-hexa-grid-3,
+    .wp-block-group.hexa-grid-container.is-style-hexa-grid-4 {
         grid-template-columns: 1fr !important;
     }
 }
