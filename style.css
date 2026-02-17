@@ -459,7 +459,11 @@ input, textarea,
 .wp-block-group.hexa-grid-container {
     display: grid;
     width: 100%;
-    gap: var(--wp--style--block-gap, 2rem);
+    max-width: 1400px !important; /* Βεβαιώνει ότι δεν θα ξεχειλώσει στο άπειρο */
+    margin-left: auto !important; /* Κεντράρισμα αριστερά */
+    margin-right: auto !important; /* Κεντράρισμα δεξιά */
+    gap: var(--wp--style--block-gap, 0px); 
+    
     align-items: stretch;
     margin-bottom: 3rem;
 }
