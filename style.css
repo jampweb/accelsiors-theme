@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.6.30
+Version: 1.6.31
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -142,18 +142,15 @@ input, textarea,
     border-radius: 0 !important;
 }
 
-/* Primary Button */
+/* Button Structure (Colors Controlled via Global Styles) */
 .wp-block-button__link {
-    background-color: #663399 !important;
-    color: #ffffff !important;
-    border: none !important;
+    transition: all 0.3s ease;
 }
 
-/* Secondary Button (Outline) */
+/* Secondary Button (Outline Structure Only) */
 .is-style-outline .wp-block-button__link {
-    background-color: transparent !important;
-    color: #ffffff !important;
-    border: 1px solid #ffffff !important;
+    border-width: 1px !important;
+    border-style: solid !important;
 }
 
 /* Barba.js Page Transitions */
@@ -225,31 +222,16 @@ input, textarea,
 
 /* Footer Base */
 .site-footer {
-    background-color: #050A30 !important;
-    color: #ffffff !important;
     padding-top: 4rem;
     padding-bottom: 2rem;
 }
 
 .site-footer a {
-    color: rgba(255, 255, 255, 0.8) !important;
     text-decoration: none;
 }
 
 .site-footer a:hover {
-    color: #ffffff !important;
     opacity: 1;
-}
-
-.site-footer h1,
-.site-footer h2,
-.site-footer h3,
-.site-footer h4,
-.site-footer h5,
-.site-footer h6,
-.site-footer p,
-.site-footer li {
-    color: #ffffff !important;
 }
 
 .site-footer ul {
@@ -259,22 +241,15 @@ input, textarea,
 }
 
 .site-footer li a {
-    color: rgba(255, 255, 255, 0.7) !important;
     font-size: 0.95rem;
     transition: color 0.3s ease;
 }
 
 .site-footer li a:hover {
-    color: #ffffff !important;
     text-decoration: underline;
 }
 
-.site-footer .wp-block-social-link {
-    color: #ffffff !important;
-}
-
 .site-footer .wp-block-column {
-    background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
