@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.7.7
+Version: 1.7.9
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -638,10 +638,49 @@ input, textarea,
 }
 
 @media (max-width: 767px) {
+    /* Μετατρέπουμε το Grid σε οριζόντιο Slider */
     .wp-block-group.hexa-grid-container,
     .wp-block-group.hexa-grid-container.is-style-hexa-grid-3,
     .wp-block-group.hexa-grid-container.is-style-hexa-grid-4 {
-        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory !important; /* Μαγνητίζει την κάρτα στο κέντρο */
+        padding-bottom: 1.5rem !important; /* Χώρος για την μπάρα */
+        gap: 1rem !important;
+        
+        /* Στυλ διακριτικής μπάρας (Firefox) */
+        scrollbar-width: thin;
+        scrollbar-color: #663399 #e0e0e0; 
+    }
+
+    /* Στυλ διακριτικής μπάρας (Chrome, Safari, iOS) */
+    .wp-block-group.hexa-grid-container::-webkit-scrollbar {
+        height: 4px; /* Πολύ λεπτή και κομψή */
+    }
+    .wp-block-group.hexa-grid-container::-webkit-scrollbar-track {
+        background: #e0e0e0; /* Γκρι ανοιχτό φόντο */
+        border-radius: 10px;
+    }
+    .wp-block-group.hexa-grid-container::-webkit-scrollbar-thumb {
+        background-color: #663399; /* Το μωβ χρώμα σου για την ένδειξη */
+        border-radius: 10px;
+    }
+
+    /* Ρυθμίσεις για την κάθε κάρτα μέσα στο slider */
+    .wp-block-group.hexa-grid-container > * {
+        flex: 0 0 85% !important; /* Πιάνει το 85% της οθόνης για να φαίνεται η άκρη της επόμενης! */
+        scroll-snap-align: center !important; /* Κεντράρει την κάρτα όταν αφήνεις το δάχτυλο */
+    }
+
+    /* Κενό στην πρώτη και την τελευταία κάρτα για να μην ακουμπάνε στα άκρα της οθόνης */
+    .wp-block-group.hexa-grid-container > :first-child {
+        margin-left: 1rem !important;
+    }
+    
+    .wp-block-group.hexa-grid-container > :last-child {
+        margin-right: 1rem !important;
     }
 }
 
