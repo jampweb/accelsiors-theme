@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.7.6
+Version: 1.7.7
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -402,10 +402,20 @@ input, textarea,
         padding: 0 20px !important;
     }
 
-    .hero-left-col,
-    .hero-right-col {
+    /* Νικάμε τον κανόνα του Desktop για να απλώσει σε όλο το πλάτος */
+    .hero-cinematic-wrapper .hero-left-col,
+    .hero-cinematic-wrapper .hero-right-col,
+    .hero-cinematic-wrapper:not(.is-style-hero-centered) .hero-left-col,
+    .hero-cinematic-wrapper:not(.is-style-hero-centered) .hero-right-col {
         width: 100% !important;
         flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Εξασφαλίζουμε ότι και το ίδιο το κείμενο έχει χώρο να απλώσει */
+    .hero-cinematic-wrapper p,
+    .hero-cinematic-wrapper h1 {
+        max-width: 100% !important;
     }
 
     .hero-title {
