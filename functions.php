@@ -312,4 +312,210 @@ function accelsiors_register_pattern_category() {
     );
 }
 add_action( 'init', 'accelsiors_register_pattern_category' );
+
+/**
+ * Contact page settings defaults.
+ */
+function accelsiors_get_contact_settings_defaults() {
+    return array(
+        'hero_title'         => 'Contact us',
+        'hero_description'   => 'Are you interested in learning more about how Accelsiors can create solutions to help you accelerate your clinical trials? Our team is ready to answer your questions. Get in touch with our experienced clinical research experts!',
+        'linkedin_url'       => 'https://www.linkedin.com/company/accelsiors',
+        'x_url'              => 'https://x.com/accelsiors',
+        'facebook_url'       => 'https://www.facebook.com/accelsiors',
+        'phone'              => '+41 43 508 72 37',
+        'general_email'      => 'info@accelsiors.com',
+        'business_email'     => 'bdglobal@accelsiors.com',
+        'pv_email'           => 'pvteam@accelsiors.com',
+        'hq_name'            => 'Accelsiors AG',
+        'hq_address'         => "Bahnhof-Park 2, CH-6340 Baar,\nSwitzerland",
+        'locations_url'      => '#',
+        'dpo_name'           => 'Aron Bence Paldeak',
+        'dpo_email'          => 'dataprotection@accelsiors.com',
+        'privacy_notice_url' => '#',
+        'contact_form_code'  => '',
+    );
+}
+
+/**
+ * Return merged contact page settings.
+ */
+function accelsiors_get_contact_settings() {
+    $stored   = get_option( 'accelsiors_contact_settings', array() );
+    $defaults = accelsiors_get_contact_settings_defaults();
+
+    if ( ! is_array( $stored ) ) {
+        $stored = array();
+    }
+
+    return wp_parse_args( $stored, $defaults );
+}
+
+/**
+ * Sanitize contact page settings before save.
+ */
+function accelsiors_sanitize_contact_settings( $input ) {
+    $defaults = accelsiors_get_contact_settings_defaults();
+    $output   = array();
+
+    foreach ( $defaults as $key => $default_value ) {
+        $value = isset( $input[ $key ] ) ? $input[ $key ] : $default_value;
+
+        switch ( $key ) {
+            case 'hero_title':
+            case 'hq_name':
+            case 'dpo_name':
+                $output[ $key ] = sanitize_text_field( $value );
+                break;
+
+            case 'hero_description':
+            case 'hq_address':
+                $output[ $key ] = sanitize_textarea_field( $value );
+                break;
+
+            case 'phone':
+                $output[ $key ] = sanitize_text_field( $value );
+                break;
+
+            case 'contact_form_code':
+                $output[ $key ] = sanitize_text_field( $value );
+                break;
+
+            case 'general_email':
+            case 'business_email':
+            case 'pv_email':
+            case 'dpo_email':
+                $output[ $key ] = sanitize_email( $value );
+                break;
+
+            default:
+                $output[ $key ] = esc_url_raw( $value );
+        }
+    }
+
+    return $output;
+}
+
+/**
+ * Add contact settings section under Settings.
+ */
+function accelsiors_register_contact_settings_page() {
+    add_options_page(
+        __( 'Contact Page Settings', 'accelsiors' ),
+        __( 'Contact Page', 'accelsiors' ),
+        'manage_options',
+        'accelsiors-contact-settings',
+        'accelsiors_render_contact_settings_page'
+    );
+}
+add_action( 'admin_menu', 'accelsiors_register_contact_settings_page' );
+
+/**
+ * Register contact settings.
+ */
+function accelsiors_register_contact_settings() {
+    register_setting(
+        'accelsiors_contact_settings_group',
+        'accelsiors_contact_settings',
+        array(
+            'sanitize_callback' => 'accelsiors_sanitize_contact_settings',
+            'default'           => accelsiors_get_contact_settings_defaults(),
+            'type'              => 'array',
+        )
+    );
+}
+add_action( 'admin_init', 'accelsiors_register_contact_settings' );
+
+/**
+ * Render Contact Page settings UI.
+ */
+function accelsiors_render_contact_settings_page() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+
+    $settings = accelsiors_get_contact_settings();
+    ?>
+    <div class="wrap">
+        <h1><?php esc_html_e( 'Contact Page Settings', 'accelsiors' ); ?></h1>
+        <p><?php esc_html_e( 'Configure the contact page details and links used by the Contact pattern.', 'accelsiors' ); ?></p>
+
+        <form action="options.php" method="post">
+            <?php settings_fields( 'accelsiors_contact_settings_group' ); ?>
+
+            <table class="form-table" role="presentation">
+                <tr>
+                    <th scope="row"><label for="hero_title"><?php esc_html_e( 'Hero title', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[hero_title]" id="hero_title" type="text" class="regular-text" value="<?php echo esc_attr( $settings['hero_title'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="hero_description"><?php esc_html_e( 'Hero description', 'accelsiors' ); ?></label></th>
+                    <td><textarea name="accelsiors_contact_settings[hero_description]" id="hero_description" rows="4" class="large-text"><?php echo esc_textarea( $settings['hero_description'] ); ?></textarea></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="linkedin_url"><?php esc_html_e( 'LinkedIn URL', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[linkedin_url]" id="linkedin_url" type="url" class="regular-text" value="<?php echo esc_attr( $settings['linkedin_url'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="x_url"><?php esc_html_e( 'X URL', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[x_url]" id="x_url" type="url" class="regular-text" value="<?php echo esc_attr( $settings['x_url'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="facebook_url"><?php esc_html_e( 'Facebook URL', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[facebook_url]" id="facebook_url" type="url" class="regular-text" value="<?php echo esc_attr( $settings['facebook_url'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="phone"><?php esc_html_e( 'Phone', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[phone]" id="phone" type="text" class="regular-text" value="<?php echo esc_attr( $settings['phone'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="general_email"><?php esc_html_e( 'General email', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[general_email]" id="general_email" type="email" class="regular-text" value="<?php echo esc_attr( $settings['general_email'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="business_email"><?php esc_html_e( 'Business development email', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[business_email]" id="business_email" type="email" class="regular-text" value="<?php echo esc_attr( $settings['business_email'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="pv_email"><?php esc_html_e( 'Global pharmacovigilance email', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[pv_email]" id="pv_email" type="email" class="regular-text" value="<?php echo esc_attr( $settings['pv_email'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="hq_name"><?php esc_html_e( 'Headquarters name', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[hq_name]" id="hq_name" type="text" class="regular-text" value="<?php echo esc_attr( $settings['hq_name'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="hq_address"><?php esc_html_e( 'Headquarters address', 'accelsiors' ); ?></label></th>
+                    <td><textarea name="accelsiors_contact_settings[hq_address]" id="hq_address" rows="3" class="large-text"><?php echo esc_textarea( $settings['hq_address'] ); ?></textarea></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="locations_url"><?php esc_html_e( 'Locations page URL', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[locations_url]" id="locations_url" type="url" class="regular-text" value="<?php echo esc_attr( $settings['locations_url'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="dpo_name"><?php esc_html_e( 'Data protection officer name', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[dpo_name]" id="dpo_name" type="text" class="regular-text" value="<?php echo esc_attr( $settings['dpo_name'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="dpo_email"><?php esc_html_e( 'Data protection officer email', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[dpo_email]" id="dpo_email" type="email" class="regular-text" value="<?php echo esc_attr( $settings['dpo_email'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="privacy_notice_url"><?php esc_html_e( 'Privacy notice URL', 'accelsiors' ); ?></label></th>
+                    <td><input name="accelsiors_contact_settings[privacy_notice_url]" id="privacy_notice_url" type="url" class="regular-text" value="<?php echo esc_attr( $settings['privacy_notice_url'] ); ?>"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="contact_form_code"><?php esc_html_e( 'Contact form shortcode (optional)', 'accelsiors' ); ?></label></th>
+                    <td>
+                        <input name="accelsiors_contact_settings[contact_form_code]" id="contact_form_code" type="text" class="large-text" value="<?php echo esc_attr( $settings['contact_form_code'] ); ?>">
+                        <p class="description"><?php esc_html_e( 'Paste a shortcode (e.g. Contact Form 7). If empty, the theme fallback form is shown.', 'accelsiors' ); ?></p>
+                    </td>
+                </tr>
+            </table>
+
+            <?php submit_button(); ?>
+        </form>
+    </div>
+    <?php
+}
 ?>

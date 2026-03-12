@@ -840,3 +840,125 @@ input, textarea,
         flex-basis: 100% !important;
     }
 }
+
+/* =====================================================
+   Contact Page
+===================================================== */
+.acc-contact-hero {
+    background: linear-gradient(120deg, #041d4f 0%, #0e2b69 60%, #164283 100%);
+    color: #fff;
+    padding: 4rem 1.5rem;
+}
+
+.acc-contact-hero__inner {
+    max-width: 980px;
+}
+
+.acc-contact-hero h1 {
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.acc-contact-hero p {
+    max-width: 860px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.acc-contact-main {
+    background: #f5f7fb;
+    padding: 3rem 1.5rem 4rem;
+}
+
+.acc-contact-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.acc-contact-sidebar {
+    background: #ffffff;
+    padding: 1.75rem;
+    border: 1px solid #e1e6ef;
+}
+
+.acc-contact-sidebar h3 {
+    margin: 0 0 0.6rem;
+    font-size: 1.45rem;
+}
+
+.acc-contact-sidebar p,
+.acc-contact-sidebar li {
+    margin-top: 0;
+    color: #2f3e58;
+}
+
+.acc-contact-sidebar a {
+    color: #0a5cb4;
+    text-decoration: none;
+}
+
+.acc-contact-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.3rem;
+}
+
+.acc-contact-links li {
+    margin-bottom: 0.4rem;
+}
+
+.acc-contact-form-col {
+    background: #fff;
+    border: 1px solid #e1e6ef;
+    padding: 1.75rem;
+}
+
+.acc-contact-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.acc-contact-form label {
+    display: block;
+    color: #55627a;
+    font-size: 0.92rem;
+}
+
+.acc-contact-form input,
+.acc-contact-form select,
+.acc-contact-form textarea {
+    margin-top: 0.35rem;
+    width: 100%;
+    border: 1px solid #cdd6e5;
+    background: #fff;
+    padding: 0.72rem 0.85rem;
+    box-sizing: border-box;
+}
+
+.acc-contact-consent {
+    font-size: 0.92rem;
+}
+
+.acc-contact-form button {
+    background: #67b3db;
+    color: #fff;
+    border: 0;
+    padding: 0.8rem 1.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+@media (max-width: 781px) {
+    .acc-contact-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .acc-contact-sidebar,
+    .acc-contact-form-col {
+        padding: 1.2rem;
+    }
+}
