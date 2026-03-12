@@ -60,6 +60,18 @@ function accelsiors_enqueue_styles() {
 
     // Smart sticky header behavior
     wp_enqueue_script( 'accelsiors-header', get_template_directory_uri() . '/assets/js/accelsiors-header.js', array(), $theme_version, true );
+
+    // Auto-close Mega Menu on link click (Fix for Barba.js SPA)
+    wp_add_inline_script( 'accelsiors-header', "
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.wp-block-navigation-item__content')) {
+                var closeBtn = document.querySelector('.wp-block-navigation__responsive-container-close');
+                if (closeBtn && document.querySelector('.wp-block-navigation__responsive-container.is-menu-open')) {
+                    closeBtn.click();
+                }
+            }
+        });
+    " );
 }
 add_action( 'wp_enqueue_scripts', 'accelsiors_enqueue_styles' );
 
