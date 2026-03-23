@@ -6,6 +6,15 @@
       "contentSize": "80%",
       "wideSize": "100%"
     },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "color": true,
+          "style": true,
+          "width": true
+        }
+      }
+    },
     "color": {
       "defaultPalette": false,
       "palette": [
@@ -59,35 +68,36 @@
     }
   },
   "styles": {
-    "typography": {
-      "fontFamily": "var(--wp--preset--font-family--sans)",
-      "fontSize": "18px",
-      "lineHeight": "1.6"
-    },
-    "blocks": {
-      "core/button": {
-        "color": {
-          "background": "#663399",
-          "text": "#ffffff"
-        },
-        "border": {
-          "radius": "0px"
-        }
+      "typography": {
+          "fontFamily": "var(--wp--preset--font-family--sans)",
+          "fontSize": "18px",
+          "lineHeight": "1.6"
       },
-      "core/image": {
-        "border": {
-          "radius": "0px"
-        }
-      }
-    },
-    "elements": {
-      "link": {
-        "color": { "text": "var(--wp--preset--color--accent)" },
-        "typography": { "fontWeight": "700" }
+      "blocks": {
+          "core/button": {
+              "color": {
+                  "background": "#663399",
+                  "text": "#ffffff"
+              },
+              "border": {
+                  "radius": "0px"
+              }
+          },
+          "core/image": {
+              "border": {
+                  "radius": "0px"
+              }
+          }
       },
-      "h1": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } },
-      "h2": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } },
-      "h3": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } }
-    }
-  }
+      "elements": {
+          "link": {
+              "color": {
+                  "text": "var(--wp--preset--color--accent)"
+              },
+    "typography": { "fontWeight": "700" }
+  },
+  "h1": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } },
+  "h2": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } },
+  "h3": { "typography": { "fontWeight": "700", "letterSpacing": "-0.02em" } }
+}
 }

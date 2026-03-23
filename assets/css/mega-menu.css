@@ -1,0 +1,126 @@
+/*
+* Mega Menu Styles
+*/
+
+/* General Menu Styling */
+.main-navigation {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.main-navigation li {
+    position: relative;
+}
+
+.main-navigation a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.main-navigation a:hover,
+.main-navigation a:focus {
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+/* Submenu (Dropdown) */
+.main-navigation .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    min-width: 200px;
+    z-index: 1000;
+    border: 1px solid #eee;
+    border-top: none;
+    flex-direction: column;
+}
+
+.main-navigation li:hover > .sub-menu,
+.main-navigation li:focus-within > .sub-menu {
+    display: block;
+}
+
+.main-navigation .sub-menu li {
+    width: 100%;
+}
+
+.main-navigation .sub-menu a {
+    padding: 10px 15px;
+}
+
+/* Mega Menu */
+.main-navigation .mega-menu > .sub-menu {
+    width: 100vw;
+    max-width: 1200px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    display: none; /* Keep it hidden by default */
+}
+
+/* Use focus-within for better accessibility and to solve the click issue */
+.main-navigation .mega-menu:focus-within > .sub-menu,
+.main-navigation .mega-menu:hover > .sub-menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mega-menu .sub-menu > li {
+    flex: 1 1 25%; /* Default to 4 columns */
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Style for menu items with images */
+.main-navigation .menu-item-image {
+    max-width: 100px; /* Adjust as needed */
+    height: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.main-navigation .menu-item-title {
+    vertical-align: middle;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .main-navigation ul {
+        flex-direction: column;
+    }
+
+    .main-navigation .sub-menu,
+    .main-navigation .mega-menu > .sub-menu {
+        position: static;
+        width: 100%;
+        border: none;
+        display: none; /* Hidden by default on mobile */
+    }
+
+    .main-navigation li.menu-item-has-children > a {
+        position: relative;
+    }
+    
+    /* Simple toggle mechanism with JS */
+     .main-navigation li.menu-item-has-children.open > .sub-menu {
+        display: block;
+    }
+
+    .mega-menu .sub-menu > li {
+        flex-basis: 100%; /* Full width columns on mobile */
+    }
+}

@@ -1,9 +1,19 @@
 <?php
+/**
+ * Include the mega menu walker
+ */
+require_once get_template_directory() . '/inc/mega-menu-walker.php';
+
 if ( ! function_exists( 'accelsiors_theme_setup' ) ) :
 	function accelsiors_theme_setup() {
 		add_theme_support( 'wp-block-styles' );
 		add_theme_support( 'editor-styles' );
 		add_editor_style( 'style.css' ); // Loads CSS in Editor
+
+        // Register navigation menus
+        register_nav_menus( array(
+            'primary' => __( 'Primary Menu', 'accelsiors-theme' ),
+        ) );
 	}
 endif;
 add_action( 'after_setup_theme', 'accelsiors_theme_setup' );
@@ -51,6 +61,11 @@ function accelsiors_enqueue_styles() {
     $theme_version = wp_get_theme()->get( 'Version' );
 
     wp_enqueue_style( 'accelsiors-main-style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ) ); // Cache busting
+
+    // Mega Menu Assets
+    wp_enqueue_style( 'accelsiors-mega-menu-style', get_template_directory_uri() . '/assets/css/mega-menu.css', array(), filemtime( get_template_directory() . '/assets/css/mega-menu.css' ) );
+    wp_enqueue_script( 'accelsiors-mega-menu-script', get_template_directory_uri() . '/assets/js/mega-menu.js', array(), $theme_version, true );
+
 
     // Enqueue Barba.js for SPA transitions
     wp_enqueue_script( 'barba', 'https://unpkg.com/@barba/core', array(), '2.9.7', true );
@@ -518,4 +533,115 @@ function accelsiors_render_contact_settings_page() {
     </div>
     <?php
 }
+
+/**
+ * Shortcode to display the mega menu.
+ *
+ * @return string The HTML output for the menu.
+ */
+function accelsiors_mega_menu_shortcode() {
+    ob_start();
+    wp_nav_menu( array(
+        'theme_location' => 'primary',
+        'container'      => 'nav',
+        'container_class'=> 'main-navigation',
+        'walker'         => new Mega_Menu_Walker(),
+    ) );
+    return ob_get_clean();
+}
+add_shortcode( 'accelsiors_mega_menu', 'accelsiors_mega_menu_shortcode' );
+
+/**
+ * Register the contact page block pattern.
+ */
+function accelsiors_register_contact_pattern() {
+    $settings = accelsiors_get_contact_settings();
+
+    // Prepare social links HTML
+    $social_links_html = '';
+    if ( ! empty( $settings['linkedin_url'] ) ) {
+        $social_links_html .= '<!-- wp:social-link {"url":"' . esc_url( $settings['linkedin_url'] ) . '","service":"linkedin"} /-->';
+    }
+    if ( ! empty( $settings['x_url'] ) ) {
+        $social_links_html .= '<!-- wp:social-link {"url":"' . esc_url( $settings['x_url'] ) . '","service":"x"} /-->';
+    }
+    if ( ! empty( 'facebook_url' ) ) {
+        $social_links_html .= '<!-- wp:social-link {"url":"' . esc_url( $settings['facebook_url'] ) . '","service":"facebook"} /-->';
+    }
+
+    // Prepare contact form shortcode
+    $contact_form_shortcode = ! empty( $settings['contact_form_code'] ) ? $settings['contact_form_code'] : '<!-- wp:paragraph --><p>No contact form shortcode has been set in Settings > Contact Page.</p><!-- /wp:paragraph -->';
+
+
+    register_block_pattern(
+        'accelsiors-theme/contact-page',
+        array(
+            'title'       => __( 'Contact Page Layout', 'accelsiors-theme' ),
+            'description' => __( 'A two-column layout for the contact page with details and a form.', 'accelsiors-theme' ),
+            'categories'  => array( 'accelsiors' ),
+            'content'     => '<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"2rem","left":"2rem"}}}} -->
+<div class="wp-block-columns alignwide"><!-- wp:column {"width":"33.33%"} -->
+<div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">' . esc_html( 'Our Headquarters' ) . '</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>' . esc_html( $settings['hq_name'] ) . '</strong><br>' . nl2br( esc_html( $settings['hq_address'] ) ) . '</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">' . esc_html( 'Contact Us' ) . '</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul><!-- wp:list-item -->
+<li><strong>' . esc_html( 'General Inquiries:' ) . '</strong> <a href="mailto:' . esc_attr( $settings['general_email'] ) . '">' . esc_html( $settings['general_email'] ) . '</a></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>' . esc_html( 'Business Development:' ) . '</strong> <a href="mailto:' . esc_attr( $settings['business_email'] ) . '">' . esc_html( $settings['business_email'] ) . '</a></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>' . esc_html( 'Phone:' ) . '</strong> ' . esc_html( $settings['phone'] ) . '</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">' . esc_html( 'Follow Us' ) . '</h3>
+<!-- /wp:heading -->
+
+<!-- wp:social-links {"iconColor":"text-main","iconColorValue":"#1a1a1a","className":"is-style-default"} -->
+<ul class="wp-block-social-links has-icon-color is-style-default">' . $social_links_html . '</ul>
+<!-- /wp:social-links --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"66.66%"} -->
+<div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">' . esc_html( 'Send us a Message' ) . '</h3>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->' . $contact_form_shortcode . '<!-- /wp:shortcode --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->',
+        )
+    );
+}
+add_action( 'init', 'accelsiors_register_contact_pattern', 11 );
+
+/**
+ * Register custom block styles.
+ */
+function accelsiors_register_custom_block_styles() {
+    // Stacked Media & Text Block Style
+    register_block_style(
+        'core/media-text',
+        array(
+            'name'  => 'stacked',
+            'label' => __( 'Stacked', 'accelsiors-theme' ),
+        )
+    );
+}
+add_action( 'init', 'accelsiors_register_custom_block_styles' );
+
 ?>
