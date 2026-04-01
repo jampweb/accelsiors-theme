@@ -18,63 +18,26 @@ if ( ! function_exists( 'accelsiors_theme_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'accelsiors_theme_setup' );
 
-function accelsiors_register_hero_block_styles() {
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'hero-cinematic',
-			'label' => __( 'Hero: Cinematic Split', 'accelsiors' ),
-		)
-	);
-
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'hero-centered',
-			'label' => __( 'Hero: Centered Stack', 'accelsiors' ),
-		)
-	);
-}
-add_action( 'init', 'accelsiors_register_hero_block_styles' );
-
-function accelsiors_register_hexa_grid_block_styles() {
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'hexa-grid-3',
-			'label' => __( 'Grid: 3 Cols', 'accelsiors' ),
-		)
-	);
-
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'hexa-grid-4',
-			'label' => __( 'Grid: 4 Cols', 'accelsiors' ),
-		)
-	);
-}
-add_action( 'init', 'accelsiors_register_hexa_grid_block_styles' );
-
 // CRITICAL FIX: Enqueue styles on the Frontend
 function accelsiors_enqueue_styles() {
     $theme_version = wp_get_theme()->get( 'Version' );
 
     wp_enqueue_style( 'accelsiors-main-style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ) ); // Cache busting
 
+    // Use filemtime for cache-busting local assets for consistency.
     // Mega Menu Assets
     wp_enqueue_style( 'accelsiors-mega-menu-style', get_template_directory_uri() . '/assets/css/mega-menu.css', array(), filemtime( get_template_directory() . '/assets/css/mega-menu.css' ) );
-    wp_enqueue_script( 'accelsiors-mega-menu-script', get_template_directory_uri() . '/assets/js/mega-menu.js', array(), $theme_version, true );
+    wp_enqueue_script( 'accelsiors-mega-menu-script', get_template_directory_uri() . '/assets/js/mega-menu.js', array(), filemtime( get_template_directory() . '/assets/js/mega-menu.js' ), true );
 
 
     // Enqueue Barba.js for SPA transitions
     wp_enqueue_script( 'barba', 'https://unpkg.com/@barba/core', array(), '2.9.7', true );
 
     // Enqueue Custom Transitions
-    wp_enqueue_script( 'accelsiors-transitions', get_template_directory_uri() . '/assets/js/app-transitions.js', array('barba'), $theme_version, true );
+    wp_enqueue_script( 'accelsiors-transitions', get_template_directory_uri() . '/assets/js/app-transitions.js', array('barba'), filemtime( get_template_directory() . '/assets/js/app-transitions.js' ), true );
 
     // Smart sticky header behavior
-    wp_enqueue_script( 'accelsiors-header', get_template_directory_uri() . '/assets/js/accelsiors-header.js', array(), $theme_version, true );
+    wp_enqueue_script( 'accelsiors-header', get_template_directory_uri() . '/assets/js/accelsiors-header.js', array(), filemtime( get_template_directory() . '/assets/js/accelsiors-header.js' ), true );
 
     // Auto-close Mega Menu on link click (Fix for Barba.js SPA)
     wp_add_inline_script( 'accelsiors-header', "
@@ -90,24 +53,58 @@ function accelsiors_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'accelsiors_enqueue_styles' );
 
+/**
+ * Helper function to generate the base Organization schema.
+ * Data should ideally come from theme options or site settings.
+ */
+function accelsiors_get_organization_schema() {
+    return [
+        '@type'    => 'Organization',
+        'name'     => 'Accelsiors',
+        'url'      => home_url(),
+        'logo'     => get_template_directory_uri() . '/assets/images/logo.png',
+        'description' => 'Accelsiors is a global CRO accelerating life-changing therapies for emerging biotech companies with tailored solutions and HexaHelix expertise.',
+        'sameAs'   => ["https://www.linkedin.com/company/accelsiors", "https://twitter.com/accelsiors", "https://www.facebook.com/accelsiors"]
+    ];
+}
+
+/**
+ * Helper function to generate Article schema.
+ */
+function accelsiors_get_article_schema($headline, $description, $image_path, $url = null) {
+    global $post;
+    $page_url = $url ?: get_permalink();
+    // Use the post's published date, or fallback to current time for new/unsaved content.
+    $publish_date = $post ? get_the_date('c', $post->ID) : date('c');
+
+    return [
+        '@type' => 'Article',
+        'headline' => $headline,
+        'description' => $description,
+        'author' => ['@type' => 'Organization', 'name' => 'Accelsiors'],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Accelsiors',
+            'logo' => ['@type' => 'ImageObject', 'url' => get_template_directory_uri() . '/assets/images/logo.png']
+        ],
+        'datePublished' => $publish_date,
+        'image' => get_template_directory_uri() . $image_path,
+        'url' => $page_url
+    ];
+}
+
 // Auto-Inject Schema Markup based on Docs
 function accelsiors_inject_schema() {
-    $schema = null;
+    // Using a graph is a great way to combine multiple schema types.
+    $schema_graph = [];
 
     if ( is_front_page() ) {
-        // Homepage Schema: Organization + FAQ + Article [Source: Brief]
-        $schema = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
-                    '@type'    => 'Organization',
-                    'name'     => 'Accelsiors',
-                    'url'      => home_url(),
-                    'logo'     => get_template_directory_uri() . '/assets/images/logo.png',
-                    'description' => 'Accelsiors is a global CRO accelerating life-changing therapies for emerging biotech companies with tailored solutions and HexaHelix expertise.',
-                    'sameAs'   => ["https://www.linkedin.com/company/accelsiors", "https://twitter.com/accelsiors", "https://www.facebook.com/accelsiors"]
-                ],
-                [
+        // Homepage Schema: Organization + FAQ + Article
+        // Improvement: This data is hardcoded. For a professional theme, this should be editable.
+        // For example, the FAQ could be populated from an Accordion block on the page.
+        $schema_graph = [
+                accelsiors_get_organization_schema(),
+                [ // FAQPage
                     '@type'    => 'FAQPage',
                     'mainEntity' => [
                         [
@@ -128,185 +125,140 @@ function accelsiors_inject_schema() {
                         ]
                     ]
                 ],
-                [
-                    '@type' => 'Article',
-                    'headline' => 'Accelsiors HexaHelix: Precision-Engineered Clinical Trials',
-                    'description' => 'Explore how Accelsiors HexaHelix powers successful trials with six strands for emerging biotechs worldwide.',
-                    'author' => [
-                        '@type' => 'Organization',
-                        'name' => 'Accelsiors'
-                    ],
-                    'publisher' => [
-                        '@type' => 'Organization',
-                        'name' => 'Accelsiors',
-                        'logo' => [
-                            '@type' => 'ImageObject',
-                            'url' => get_template_directory_uri() . '/assets/images/logo.png'
-                        ]
-                    ],
-                    'datePublished' => '2025-01-01',
-                    'image' => get_template_directory_uri() . '/assets/images/helix-hero.jpg',
-                    'url' => home_url()
-                ]
-            ]
+                accelsiors_get_article_schema(
+                    'Accelsiors HexaHelix: Precision-Engineered Clinical Trials',
+                    'Explore how Accelsiors HexaHelix powers successful trials with six strands for emerging biotechs worldwide.',
+                    '/assets/images/helix-hero.jpg',
+                    home_url()
+                ),
         ];
-    } 
-    
-    // Sub-pages Schema Injection
-    if ( is_page('qualitydrive') ) {
-        $schema = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
-                    '@type' => 'Organization',
-                    'name' => 'Accelsiors',
-                    'url' => home_url(),
-                    'logo' => get_template_directory_uri() . '/assets/images/accelsiors-logo.png',
-                    'description' => 'Accelsiors is a global CRO accelerating therapies for emerging biotechs with HexaHelix solutions.'
-                ],
-                [
+    } elseif ( is_page('qualitydrive') ) {
+        $schema_graph = [
+                accelsiors_get_organization_schema(),
+                [ // FAQPage
                     '@type'    => 'FAQPage',
                     'mainEntity' => [
-                        [
-                            '@type' => 'Question',
-                            'name' => 'What is QualityDRIVE™?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'QualityDRIVE™ is the precision strand of Accelsiors HexaHelix, preventing errors through Quality by Design (QbD) and stakeholder alignment.'
-                            ]
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => 'How does QualityDRIVE™ benefit emerging biotechs?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'It reduces risks by up to 40%, ensures regulatory compliance, and accelerates trials with cost savings.'
-                            ]
-                        ]
+                        ['@type' => 'Question', 'name' => 'What is QualityDRIVE™?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'QualityDRIVE™ is the precision strand of Accelsiors HexaHelix, preventing errors through Quality by Design (QbD) and stakeholder alignment.']],
+                        ['@type' => 'Question', 'name' => 'How does QualityDRIVE™ benefit emerging biotechs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It reduces risks by up to 40%, ensures regulatory compliance, and accelerates trials with cost savings.']]
                     ]
                 ],
-                [
-                    '@type' => 'Article',
-                    'headline' => 'QualityDRIVE™ – Precision Strand of Accelsiors HexaHelix',
-                    'description' => 'Learn how QualityDRIVE™ embeds precision and Quality by Design into clinical trials for emerging biotechs.',
-                    'author' => ['@type' => 'Organization', 'name' => 'Accelsiors'],
-                    'publisher' => ['@type' => 'Organization', 'name' => 'Accelsiors', 'logo' => ['@type' => 'ImageObject', 'url' => get_template_directory_uri() . '/assets/images/logo.png']],
-                    'datePublished' => '2025-01-01',
-                    'image' => get_template_directory_uri() . '/assets/images/hero-qualitydrive.jpg',
-                    'url' => home_url('/expertise/hexahelix/qualitydrive')
-                ]
-            ]
+                accelsiors_get_article_schema(
+                    'QualityDRIVE™ – Precision Strand of Accelsiors HexaHelix',
+                    'Learn how QualityDRIVE™ embeds precision and Quality by Design into clinical trials for emerging biotechs.',
+                    '/assets/images/hero-qualitydrive.jpg',
+                    home_url('/expertise/hexahelix/qualitydrive')
+                ),
         ];
     } elseif ( is_page('strongcore-scientific') ) {
-        $schema = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
+        $schema_graph = [
+                [ // FAQPage
                     '@type' => 'FAQPage',
                     'mainEntity' => [
                         ['@type' => 'Question', 'name' => 'What is StrongCORE Scientific™?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'StrongCORE Scientific™ is the scientific integrity strand of Accelsiors HexaHelix, delivering ideal results through globally recognized experts.']],
                         ['@type' => 'Question', 'name' => 'How does StrongCORE Scientific™ benefit emerging biotechs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It provides reliable outcomes, expert access, and innovation for complex trials, saving time and enhancing approvals.']]
                     ]
                 ],
-                [
-                    '@type' => 'Article',
-                    'headline' => 'StrongCORE Scientific™ – Scientific Integrity Strand of Accelsiors HexaHelix',
-                    'description' => 'Learn how StrongCORE Scientific™ delivers ideal trial results with globally recognized expertise for emerging biotechs.',
-                    'author' => ['@type' => 'Organization', 'name' => 'Accelsiors'],
-                    'datePublished' => '2025-01-01'
-                ]
-            ]
+                accelsiors_get_article_schema(
+                    'StrongCORE Scientific™ – Scientific Integrity Strand of Accelsiors HexaHelix',
+                    'Learn how StrongCORE Scientific™ delivers ideal trial results with globally recognized expertise for emerging biotechs.',
+                    '/assets/images/placeholder.jpg' // NOTE: Update with actual image path
+                ),
         ];
     } elseif ( is_page('acceleroute') ) {
-        $schema = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
+        $schema_graph = [
+                [ // FAQPage
                     '@type' => 'FAQPage',
                     'mainEntity' => [
                         ['@type' => 'Question', 'name' => 'What is AcceleROUTE™?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'AcceleROUTE™ is the efficiency strand of Accelsiors HexaHelix, ensuring cohesion and acceleration by examining all study aspects under one team.']],
                         ['@type' => 'Question', 'name' => 'How does AcceleROUTE™ benefit emerging biotechs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It accelerates timelines by up to 30%, reduces costs through error elimination, and scales globally for efficient trials.']]
                     ]
                 ],
-                [
-                    '@type' => 'Article',
-                    'headline' => 'AcceleROUTE™ – Efficiency Strand of Accelsiors HexaHelix',
-                    'description' => 'Learn how AcceleROUTE™ drives seamless cohesion and acceleration in clinical trials for emerging biotechs.',
-                    'author' => ['@type' => 'Organization', 'name' => 'Accelsiors'],
-                    'datePublished' => '2025-01-01'
-                ]
-            ]
+                accelsiors_get_article_schema(
+                    'AcceleROUTE™ – Efficiency Strand of Accelsiors HexaHelix',
+                    'Learn how AcceleROUTE™ drives seamless cohesion and acceleration in clinical trials for emerging biotechs.',
+                    '/assets/images/placeholder.jpg' // NOTE: Update with actual image path
+                ),
         ];
     } elseif ( is_page('widescope-intelligence') ) {
-        $schema = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
+        $schema_graph = [
+                [ // FAQPage
                     '@type' => 'FAQPage',
                     'mainEntity' => [
                         ['@type' => 'Question', 'name' => 'What is WideSCOPE Intelligence™?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'WideSCOPE Intelligence™ is the data strand of Accelsiors HexaHelix, uniting study elements in a full-scale eClinical system to decrease errors and increase transparency.']],
                         ['@type' => 'Question', 'name' => 'How does WideSCOPE Intelligence™ benefit emerging biotechs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It enhances transparency with integrated data tools, reduces errors by up to 50%, and supports risk-based monitoring for efficient global trials.']]
                     ]
                 ],
-                [
-                    '@type' => 'Article',
-                    'headline' => 'WideSCOPE Intelligence™ – Data Strand of Accelsiors HexaHelix',
-                    'description' => 'Learn how WideSCOPE Intelligence™ integrates eClinical systems for transparent, error-free clinical trials in emerging biotechs.',
-                    'author' => ['@type' => 'Organization', 'name' => 'Accelsiors'],
-                    'datePublished' => '2025-01-01'
-                ]
-            ]
+                accelsiors_get_article_schema(
+                    'WideSCOPE Intelligence™ – Data Strand of Accelsiors HexaHelix',
+                    'Learn how WideSCOPE Intelligence™ integrates eClinical systems for transparent, error-free clinical trials in emerging biotechs.',
+                    '/assets/images/placeholder.jpg' // NOTE: Update with actual image path
+                ),
         ];
     } elseif ( is_page('propatient-solutions') ) {
-        $schema = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
+        $schema_graph = [
+                [ // FAQPage
                     '@type' => 'FAQPage',
                     'mainEntity' => [
                         ['@type' => 'Question', 'name' => 'What is ProPATIENT Solutions™?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'ProPATIENT Solutions™ is the patient engagement strand of Accelsiors HexaHelix, developing guidelines to make studies by patients, for patients, without legislative requirements.']],
                         ['@type' => 'Question', 'name' => 'How does ProPATIENT Solutions™ benefit emerging biotechs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It improves retention by up to 35%, enhances data quality, and provides a competitive edge through patient-centric research.']]
                     ]
                 ],
-                [
-                    '@type' => 'Article',
-                    'headline' => 'ProPATIENT Solutions™ – Patient Engagement Strand of Accelsiors HexaHelix',
-                    'description' => 'Learn how ProPATIENT Solutions™ integrates patient voices for better clinical trials in emerging biotechs.',
-                    'author' => ['@type' => 'Organization', 'name' => 'Accelsiors'],
-                    'datePublished' => '2025-01-01'
-                ]
-            ]
+                accelsiors_get_article_schema(
+                    'ProPATIENT Solutions™ – Patient Engagement Strand of Accelsiors HexaHelix',
+                    'Learn how ProPATIENT Solutions™ integrates patient voices for better clinical trials in emerging biotechs.',
+                    '/assets/images/placeholder.jpg' // NOTE: Update with actual image path
+                ),
         ];
     } elseif ( is_page('acceshild') ) {
-        $schema = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
+        $schema_graph = [
+                [ // FAQPage
                     '@type'    => 'FAQPage',
                     'mainEntity' => [
                         ['@type' => 'Question', 'name' => 'What is ACCESHILD™?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'ACCESHILD™ is the security strand of Accelsiors HexaHelix, providing turnkey AI compliance defense through Audit, Remediation, and Governance phases.']],
                         ['@type' => 'Question', 'name' => 'How does ACCESHILD™ benefit emerging biotechs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It reduces AI risks by 50%, ensures multi-region compliance, and avoids delays without internal teams.']]
                     ]
                 ],
-                [
-                    '@type' => 'Article',
-                    'headline' => 'ACCESHILD™ – Security Strand of Accelsiors HexaHelix',
-                    'description' => 'Learn how ACCESHILD™ shields clinical trials from AI risks with operational compliance for emerging biotechs.',
-                    'author' => ['@type' => 'Organization', 'name' => 'Accelsiors'],
-                    'datePublished' => '2025-01-01'
-                ]
-            ]
+                accelsiors_get_article_schema(
+                    'ACCESHILD™ – Security Strand of Accelsiors HexaHelix',
+                    'Learn how ACCESHILD™ shields clinical trials from AI risks with operational compliance for emerging biotechs.',
+                    '/assets/images/placeholder.jpg' // NOTE: Update with actual image path
+                ),
         ];
     }
 
-    if ( $schema ) {
+    if ( ! empty( $schema_graph ) ) {
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@graph'   => $schema_graph,
+        ];
         echo '<script type="application/ld+json">' . json_encode($schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . '</script>';
     }
 }
 add_action('wp_head', 'accelsiors_inject_schema');
 
-// Register Custom Block Styles for the HexaHelix Grid
+// Register all custom block styles in one function for better organization.
 function accelsiors_register_block_styles() {
+    // Hero Block Styles (for core/group)
+    register_block_style( 'core/group', array(
+        'name'  => 'hero-cinematic',
+        'label' => __( 'Hero: Cinematic Split', 'accelsiors' ),
+    ) );
+    register_block_style( 'core/group', array(
+        'name'  => 'hero-centered',
+        'label' => __( 'Hero: Centered Stack', 'accelsiors' ),
+    ) );
+
+    // Hexa Grid Block Styles (for core/group)
+    register_block_style( 'core/group', array(
+        'name'  => 'hexa-grid-3',
+        'label' => __( 'Grid: 3 Cols', 'accelsiors' ),
+    ) );
+    register_block_style( 'core/group', array(
+        'name'  => 'hexa-grid-4',
+        'label' => __( 'Grid: 4 Cols', 'accelsiors' ),
+    ) );
+
+    // Card Block Styles (for core/columns)
     register_block_style( 'core/columns', array(
         'name'  => 'cards-vertical',
         'label' => __( 'Vertical Cards (Poster)', 'accelsiors' ),
@@ -315,6 +267,12 @@ function accelsiors_register_block_styles() {
     register_block_style( 'core/columns', array(
         'name'  => 'cards-horizontal',
         'label' => __( 'Horizontal Cards (Landscape)', 'accelsiors' ),
+    ) );
+
+    // Stacked Media & Text Block Style
+    register_block_style( 'core/media-text', array(
+        'name'  => 'stacked',
+        'label' => __( 'Stacked', 'accelsiors-theme' ),
     ) );
 }
 add_action( 'init', 'accelsiors_register_block_styles' );
@@ -539,6 +497,12 @@ function accelsiors_render_contact_settings_page() {
  *
  * @return string The HTML output for the menu.
  */
+/*
+ * Note: A shortcode for the primary navigation is unusual.
+ * Typically, `wp_nav_menu()` is called directly within a header template part.
+ * This shortcode is useful if you intend for users to place the main menu
+ * inside content via the editor, which might be your goal.
+ */
 function accelsiors_mega_menu_shortcode() {
     ob_start();
     wp_nav_menu( array(
@@ -572,6 +536,16 @@ function accelsiors_register_contact_pattern() {
     // Prepare contact form shortcode
     $contact_form_shortcode = ! empty( $settings['contact_form_code'] ) ? $settings['contact_form_code'] : '<!-- wp:paragraph --><p>No contact form shortcode has been set in Settings > Contact Page.</p><!-- /wp:paragraph -->';
 
+    /*
+     * For complex patterns like this, building the content string can be hard to read and maintain.
+     * A more maintainable approach is to store the pattern's block markup in a separate `.php` file
+     * and use output buffering to include it here.
+     *
+     * Example:
+     * ob_start();
+     * include get_template_directory() . '/patterns/contact-page.php';
+     * $pattern_content = ob_get_clean();
+     */
 
     register_block_pattern(
         'accelsiors-theme/contact-page',
@@ -628,20 +602,5 @@ function accelsiors_register_contact_pattern() {
     );
 }
 add_action( 'init', 'accelsiors_register_contact_pattern', 11 );
-
-/**
- * Register custom block styles.
- */
-function accelsiors_register_custom_block_styles() {
-    // Stacked Media & Text Block Style
-    register_block_style(
-        'core/media-text',
-        array(
-            'name'  => 'stacked',
-            'label' => __( 'Stacked', 'accelsiors-theme' ),
-        )
-    );
-}
-add_action( 'init', 'accelsiors_register_custom_block_styles' );
 
 ?>
