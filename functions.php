@@ -529,7 +529,7 @@ function accelsiors_register_contact_pattern() {
     if ( ! empty( $settings['x_url'] ) ) {
         $social_links_html .= '<!-- wp:social-link {"url":"' . esc_url( $settings['x_url'] ) . '","service":"x"} /-->';
     }
-    if ( ! empty( 'facebook_url' ) ) {
+    if ( ! empty( $settings['facebook_url'] ) ) {
         $social_links_html .= '<!-- wp:social-link {"url":"' . esc_url( $settings['facebook_url'] ) . '","service":"facebook"} /-->';
     }
 
@@ -602,5 +602,3 @@ function accelsiors_register_contact_pattern() {
     );
 }
 add_action( 'init', 'accelsiors_register_contact_pattern', 11 );
-
-?>
