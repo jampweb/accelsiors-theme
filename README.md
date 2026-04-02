@@ -1,7 +1,7 @@
 # Accelsiors Modern FSE Theme
 
 **Theme Name:** Accelsiors Modern FSE
-**Version:** 1.8.0
+**Version:** 1.9.0
 **Author:** Accelsiors Dev Team (Ioannis Passalidis)
 **Description:** Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
 

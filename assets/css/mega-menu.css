@@ -6,8 +6,8 @@
 .main-navigation {
     position: relative;
     width: 100%;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
+    background-color: var(--wp--preset--color--white, #ffffff);
+    border-bottom: 1px solid var(--wp--preset--color--light-gray, #f5f5f5);
 }
 
 .main-navigation ul {
@@ -23,35 +23,35 @@
 
 .main-navigation a {
     display: block;
-    padding: 15px 20px;
+    padding: var(--wp--preset--spacing--40, 1rem) var(--wp--preset--spacing--50, 1.5rem);
     text-decoration: none;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
+    color: var(--wp--preset--color--text-main, #1a1a1a);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .main-navigation a:hover,
-.main-navigation a:focus {
-    background-color: #f5f5f5;
-    color: #000;
+.main-navigation a:focus,
+.main-navigation li.is-open > a {
+    background-color: var(--wp--preset--color--light-gray, #f5f5f5);
+    color: var(--wp--preset--color--primary, #003366);
 }
 
 /* Submenu (Dropdown) */
 .main-navigation .sub-menu {
-    display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #fff;
-    min-width: 200px;
-    z-index: 1000;
-    border: 1px solid #eee;
-    border-top: none;
+    background-color: var(--wp--preset--color--white, #ffffff);
+    min-width: 250px;
+    z-index: 9999;
+    box-shadow: var(--wp--preset--shadow--natural, 0 4px 10px rgba(0,0,0,0.1));
     flex-direction: column;
-}
-
-.main-navigation li:hover > .sub-menu,
-.main-navigation li:focus-within > .sub-menu {
-    display: block;
+    
+    /* Smooth Fade-in Transition */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
 .main-navigation .sub-menu li {
@@ -59,37 +59,43 @@
 }
 
 .main-navigation .sub-menu a {
-    padding: 10px 15px;
+    padding: var(--wp--preset--spacing--30, 0.75rem) var(--wp--preset--spacing--50, 1.5rem);
 }
 
-/* Mega Menu */
-.main-navigation .mega-menu > .sub-menu {
-    width: 100vw;
-    max-width: 1200px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 20px;
-    display: none; /* Keep it hidden by default */
-}
-
-/* Use focus-within for better accessibility and to solve the click issue */
-.main-navigation .mega-menu:focus-within > .sub-menu,
-.main-navigation .mega-menu:hover > .sub-menu {
+/* Show Submenu on Class toggle */
+.main-navigation li.is-open > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
     display: flex;
+}
+
+/* Mega Menu Specifics */
+.main-navigation .mega-menu > .sub-menu {
+    /* Full width overlay logic mapped against FSE Global Content Size */
+    left: calc(50% - 50vw);
+    width: 100vw;
+    max-width: 100vw;
+    padding-left: calc(50vw - (var(--wp--style--global--content-size, 80%) / 2));
+    padding-right: calc(50vw - (var(--wp--style--global--content-size, 80%) / 2));
+    padding-top: var(--wp--preset--spacing--60, 2rem);
+    padding-bottom: var(--wp--preset--spacing--60, 2rem);
+    flex-direction: row;
     flex-wrap: wrap;
+    gap: var(--wp--preset--spacing--50, 1.5rem);
 }
 
 .mega-menu .sub-menu > li {
-    flex: 1 1 25%; /* Default to 4 columns */
-    padding: 0 15px;
+    flex: 1 1 calc(25% - var(--wp--preset--spacing--50, 1.5rem)); /* Default to 4 columns */
+    padding: 0;
     box-sizing: border-box;
 }
 
 /* Style for menu items with images */
 .main-navigation .menu-item-image {
-    max-width: 100px; /* Adjust as needed */
+    max-width: 100%;
     height: auto;
-    margin-right: 10px;
+    margin-right: var(--wp--preset--spacing--30, 0.75rem);
     vertical-align: middle;
 }
 
@@ -107,19 +113,21 @@
     .main-navigation .mega-menu > .sub-menu {
         position: static;
         width: 100%;
-        border: none;
-        display: none; /* Hidden by default on mobile */
+        left: auto;
+        max-width: 100%;
+        box-shadow: none;
+        padding-left: var(--wp--preset--spacing--40, 1rem);
+        padding-right: var(--wp--preset--spacing--40, 1rem);
+        transform: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
     }
 
     .main-navigation li.menu-item-has-children > a {
         position: relative;
     }
     
-    /* Simple toggle mechanism with JS */
-     .main-navigation li.menu-item-has-children.open > .sub-menu {
-        display: block;
-    }
-
     .mega-menu .sub-menu > li {
         flex-basis: 100%; /* Full width columns on mobile */
     }

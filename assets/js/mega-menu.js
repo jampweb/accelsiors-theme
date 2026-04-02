@@ -1,52 +1,75 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuItems = document.querySelectorAll('.main-navigation .menu-item-has-children');
-    const isMobile = () => window.innerWidth <= 768;
 
-    // Toggle submenu on click for mobile
+    // Set initial ARIA attributes
     menuItems.forEach(item => {
-        item.addEventListener('click', function(event) {
-            if (isMobile()) {
-                // Prevent link from being followed on first click
-                if (!item.classList.contains('open')) {
-                    event.preventDefault();
-                }
-
-                // Close other open menus
-                menuItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('open');
-                    }
-                });
-
-                // Toggle the 'open' class
-                item.classList.toggle('open');
-            }
-        });
-    });
-
-    // Close menus if clicking outside
-    document.addEventListener('click', function(event) {
-        if (isMobile()) {
-            const isClickInside = document.querySelector('.main-navigation').contains(event.target);
-            if (!isClickInside) {
-                menuItems.forEach(item => {
-                    item.classList.remove('open');
-                });
-            }
+        const link = item.querySelector('a');
+        if (link) {
+            link.setAttribute('aria-expanded', 'false');
+            link.setAttribute('role', 'button');
         }
     });
 
-    // Basic focus management for accessibility, works with the CSS :focus-within
-    // This helps ensure the menu closes when focus moves away.
-    const navLinks = document.querySelectorAll('.main-navigation a');
-    navLinks.forEach(link => {
-        link.addEventListener('focus', (event) => {
-            // The :focus-within CSS does most of the work here.
-            // We can add more complex logic if needed.
+    // Toggle submenu on click
+    document.addEventListener('click', function(event) {
+        let isClickInsideMenu = false;
+
+        menuItems.forEach(item => {
+            const link = item.querySelector('a');
+            const isClickInsideThisItem = item.contains(event.target);
+
+            if (isClickInsideThisItem) {
+                isClickInsideMenu = true;
+
+                // Only toggle if the click is on the link itself (not inside the sub-menu)
+                if (event.target === link || link.contains(event.target)) {
+                    event.preventDefault();
+                    const isOpen = item.classList.contains('is-open');
+
+                    // Close other menus
+                    menuItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('is-open');
+                            const otherLink = otherItem.querySelector('a');
+                            if (otherLink) otherLink.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+
+                    // Toggle current menu
+                    if (isOpen) {
+                        item.classList.remove('is-open');
+                        link.setAttribute('aria-expanded', 'false');
+                    } else {
+                        item.classList.add('is-open');
+                        link.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            }
         });
-        link.addEventListener('blur', (event) => {
-            // When an element loses focus, we could check if focus is still within the nav
-            // but :focus-within is more efficient.
-        });
+
+        // Close menus if clicking outside
+        if (!isClickInsideMenu) {
+            menuItems.forEach(item => {
+                item.classList.remove('is-open');
+                const link = item.querySelector('a');
+                if (link) link.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+
+    // Close on Escape Key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            menuItems.forEach(item => {
+                if (item.classList.contains('is-open')) {
+                    item.classList.remove('is-open');
+                    const link = item.querySelector('a');
+                    if (link) {
+                        link.setAttribute('aria-expanded', 'false');
+                        link.focus(); // Return focus to the trigger for screen readers
+                    }
+                }
+            });
+        }
     });
 });

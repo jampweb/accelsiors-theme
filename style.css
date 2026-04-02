@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.8.0
+Version: 1.9.0
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -261,7 +261,7 @@ input, textarea,
 /* Hero Section */
 .hero-cover.wp-block-cover {
     background-image: none !important;
-    background-color: #050A30 !important;
+    background-color: var(--wp--preset--color--primary, #050A30) !important;
     padding: 140px 20px !important;
 }
 
@@ -273,7 +273,7 @@ input, textarea,
 .hero-cover h1,
 .hero-cover p,
 .hero-cover a {
-    color: #ffffff !important;
+    color: var(--wp--preset--color--white, #ffffff) !important;
 }
 
 .hero-cover img.wp-block-cover__image-background[src=""] {
@@ -369,14 +369,14 @@ input, textarea,
     font-size: clamp(3.5rem, 6vw, 7.5rem) !important;
     line-height: 0.95 !important;
     font-weight: 800 !important;
-    color: #fff !important;
+    color: var(--wp--preset--color--white, #ffffff) !important;
     margin: 0 !important;
 }
 
 .hero-accent-line {
     width: 60px !important;
     height: 4px !important;
-    background-color: #A100FF !important;
+    background-color: var(--wp--preset--color--accent, #663399) !important;
     border: none !important;
     margin: 0 0 1.5rem 0 !important;
 }
@@ -562,7 +562,7 @@ input, textarea,
     font-size: 0.8rem !important;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: #FFFFFF !important;
+    color: var(--wp--preset--color--white, #ffffff) !important;
     margin: 0 0 0.5rem !important;
     font-weight: 700;
 }
@@ -571,7 +571,7 @@ input, textarea,
     font-size: clamp(1.7rem, 2.1vw, 2.25rem) !important;
     font-weight: 700 !important;
     line-height: 1.1 !important;
-    color: #ffffff !important;
+    color: var(--wp--preset--color--white, #ffffff) !important;
     margin: 0 !important;
 }
 
@@ -611,7 +611,7 @@ input, textarea,
 }
 
 .hexa-link a {
-    color: #ffffff !important;
+    color: var(--wp--preset--color--white, #ffffff) !important;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
