@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.9.0
+Version: 1.9.2
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -74,6 +74,38 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
+}
+
+/* =====================================================
+   Mega Menu Custom Layout (Native Navigation Block)
+===================================================== */
+/* Κληρονομεί το πλάτος του content και χρησιμοποιεί CSS Grid */
+.wp-block-navigation-item.mega-menu {
+    position: static;
+}
+
+.wp-block-navigation-item.mega-menu > .wp-block-navigation__submenu-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--wp--style--global--content-size, 1400px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--wp--style--block-gap, 1.5rem);
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+@media (max-width: 991px) {
+    .wp-block-navigation-item.mega-menu > .wp-block-navigation__submenu-container {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: 1fr;
+        padding: 1rem 0;
+    }
 }
 
 .search-overlay-container {
@@ -270,10 +302,11 @@ input, textarea,
     margin: 0 auto;
 }
 
-.hero-cover h1,
-.hero-cover p,
-.hero-cover a {
-    color: var(--wp--preset--color--white, #ffffff) !important;
+/* Αυξημένο specificity αντί για !important για την αποφυγή conflict με το Barba.js */
+body .wp-site-blocks .hero-cover h1.wp-block-heading,
+body .wp-site-blocks .hero-cover p,
+body .wp-site-blocks .hero-cover a {
+    color: var(--wp--preset--color--white, #ffffff);
 }
 
 .hero-cover img.wp-block-cover__image-background[src=""] {
@@ -369,7 +402,7 @@ input, textarea,
     font-size: clamp(3.5rem, 6vw, 7.5rem) !important;
     line-height: 0.95 !important;
     font-weight: 800 !important;
-    color: var(--wp--preset--color--white, #ffffff) !important;
+    color: var(--wp--preset--color--white, #ffffff);
     margin: 0 !important;
 }
 
@@ -984,4 +1017,33 @@ input, textarea,
     grid-column: 1;
     grid-row: 2;
     padding: 0;
+}
+
+/* =====================================================
+   Video Block Layout Shift Fix
+===================================================== */
+body .wp-block-video {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body .is-layout-constrained > .wp-block-video:not(.alignwide):not(.alignfull) {
+    max-width: var(--wp--style--global--content-size, 1200px);
+}
+
+body .is-layout-constrained > .wp-block-video.alignwide {
+    max-width: var(--wp--style--global--wide-size, 1400px);
+}
+
+body .wp-block-video.alignfull {
+    max-width: 100vw;
+}
+
+body .wp-block-video video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
 }

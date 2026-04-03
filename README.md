@@ -37,6 +37,10 @@ A custom, responsive mega menu has been built to replace the default navigation 
     *   Go to "Screen Options" and ensure the "Description" box is checked.
     *   Open the details for any menu item (top-level or submenu item).
     *   In the "Description" field, paste the full URL of the image you want to display next to the menu item title. The image will be displayed automatically.
+5.  **Display the Menu in the Site Editor:**
+    *   Go to **Appearance > Editor** and edit your Header template part.
+    *   Delete the default WordPress Navigation block.
+    *   Add a **Shortcode** block in its place and enter `[accelsiors_mega_menu]`.
 
 ### 2. Contact Page 
 
