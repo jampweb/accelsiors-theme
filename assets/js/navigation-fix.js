@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Function to force-close any open navigation overlays
-    var closeNavOverlay = function() {
+    var closeMenu = function() {
         var openedItems = document.querySelectorAll('.wp-block-navigation-item.is-opened');
         openedItems.forEach(function(item) {
             item.classList.remove('is-opened');
@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // 1. Force-close immediately when the initial page loads
-    closeNavOverlay();
+    closeMenu();
 
     // 2. Hook into Barba.js lifecycle for SPA transitions
     if (typeof barba !== 'undefined') {
-        barba.hooks.beforeEnter(function() {
-            closeNavOverlay();
+        barba.hooks.beforeLeave(function() {
+            closeMenu();
         });
     }
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var navLink = e.target.closest('.wp-block-navigation__container a');
         if (navLink) {
             setTimeout(function() {
-                closeNavOverlay();
+                closeMenu();
             }, 100);
         }
     });
