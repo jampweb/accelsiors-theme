@@ -1,21 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var menuLinks = document.querySelectorAll('.wp-block-navigation-item a');
-    
-    menuLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            // Εντοπισμός όλων των ανοιχτών submenus και αφαίρεση της κλάσης is-opened
-            var openedItems = document.querySelectorAll('.wp-block-navigation-item.is-opened');
-            openedItems.forEach(function(item) {
-                item.classList.remove('is-opened');
-            });
-            
-            // Κλείσιμο και του mobile μενού αν είναι ανοιχτό
-            var closeBtn = document.querySelector('.wp-block-navigation__responsive-container-close');
-            var mobileMenu = document.querySelector('.wp-block-navigation__responsive-container.is-menu-open');
-            
-            if (closeBtn && mobileMenu) {
-                closeBtn.click();
-            }
+    // Function to force-close any open navigation overlays
+    var closeNavOverlay = function() {
+        var openedItems = document.querySelectorAll('.wp-block-navigation-item.is-opened');
+        openedItems.forEach(function(item) {
+            item.classList.remove('is-opened');
         });
+        
+        var mobileMenus = document.querySelectorAll('.wp-block-navigation__responsive-container.is-menu-open');
+        mobileMenus.forEach(function(menu) {
+            menu.classList.remove('is-menu-open');
+        });
+
+        var toggleBtns = document.querySelectorAll('.wp-block-navigation button[aria-expanded="true"], .wp-block-navigation a[aria-expanded="true"]');
+        toggleBtns.forEach(function(btn) {
+            btn.setAttribute('aria-expanded', 'false');
+        });
+    };
+
+    // 1. Force-close immediately when the initial page loads
+    closeNavOverlay();
+
+    // 2. Hook into Barba.js lifecycle for SPA transitions
+    if (typeof barba !== 'undefined') {
+        barba.hooks.beforeEnter(function() {
+            closeNavOverlay();
+        });
+    }
+
+    // 3. Use event delegation for links so it survives Barba DOM replacements
+    document.addEventListener('click', function(e) {
+        var navLink = e.target.closest('.wp-block-navigation__container a');
+        if (navLink) {
+            setTimeout(function() {
+                closeNavOverlay();
+            }, 100);
+        }
     });
 });

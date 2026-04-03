@@ -87,6 +87,28 @@
               "border": {
                   "radius": "0px"
               }
+          },
+          "core/group": {
+              "variations": {
+                  "hero-cinematic": {
+                      "blocks": {
+                          "core/heading": {
+                              "color": {
+                                  "text": "var(--wp--preset--color--white)"
+                              }
+                          }
+                      }
+                  },
+                  "hero-centered": {
+                      "blocks": {
+                          "core/heading": {
+                              "color": {
+                                  "text": "var(--wp--preset--color--white)"
+                              }
+                          }
+                      }
+                  }
+              }
           }
       },
       "elements": {

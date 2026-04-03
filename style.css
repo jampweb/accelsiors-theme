@@ -4,7 +4,7 @@ Theme URI: https://accelsiors.com
 Author: Accelsiors Dev Team (Ioannis Passalidis i.passalidis@accelsiors.com)
 Author URI: https://accelsiors.com
 Description: Custom FSE theme based on 2026 Rebranding Proposal. Focus on HexaHelix & Speed.
-Version: 1.9.2
+Version: 1.9.6
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -304,6 +304,8 @@ input, textarea,
 
 /* Αυξημένο specificity αντί για !important για την αποφυγή conflict με το Barba.js */
 body .wp-site-blocks .hero-cover h1.wp-block-heading,
+body .wp-site-blocks .hero-cover h2.wp-block-heading,
+body .wp-site-blocks .hero-cover h3.wp-block-heading,
 body .wp-site-blocks .hero-cover p,
 body .wp-site-blocks .hero-cover a {
     color: var(--wp--preset--color--white, #ffffff);
@@ -1024,8 +1026,11 @@ body .wp-site-blocks .hero-cover a {
 ===================================================== */
 body .wp-block-video {
     width: 100%;
+    max-width: var(--wp--style--global--content-size, 1400px);
     margin-left: auto;
     margin-right: auto;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
 }
 
 body .is-layout-constrained > .wp-block-video:not(.alignwide):not(.alignfull) {
@@ -1042,8 +1047,41 @@ body .wp-block-video.alignfull {
 
 body .wp-block-video video {
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* =====================================================
+   YouTube Embed Layout Fix
+===================================================== */
+body .wp-block-embed-youtube {
+    width: 100%;
+    max-width: var(--wp--style--global--content-size, 1400px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body .is-layout-constrained > .wp-block-embed-youtube:not(.alignwide):not(.alignfull) {
+    max-width: var(--wp--style--global--content-size, 1200px);
+}
+
+body .is-layout-constrained > .wp-block-embed-youtube.alignwide {
+    max-width: var(--wp--style--global--wide-size, 1400px);
+}
+
+body .wp-block-embed-youtube.alignfull {
+    max-width: 100vw;
+}
+
+body .wp-block-embed-youtube .wp-block-embed__wrapper {
+    width: 100%;
+}
+
+body .wp-block-embed-youtube .wp-block-embed__wrapper iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    display: block;
+}
 }
